@@ -21,8 +21,7 @@
 #define REMATCH_LEVEL_CAP_STAGE_4  95
 #define REMATCH_LEVEL_STAGE_MAX   100
 
-// Maximum trainer ID index stored in the rematch array.
-#define TRAINER_REMATCH_MAX_ID 1024
+// TRAINER_REMATCH_MAX_ID is defined in constants/global.h (included via global.h).
 
 u8  GetTrainerRematchStage(u16 trainerId);
 void SetTrainerRematchStage(u16 trainerId, u8 stage);

@@ -10,7 +10,7 @@ struct Landmark
 
 struct LandmarkList
 {
-    mapsec_u8_t mapSection;
+    mapsec_u16_t mapSection;
     u8 id;
     const struct Landmark *const *landmarks;
 };

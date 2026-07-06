@@ -156,7 +156,7 @@ O_LEVEL ?= g
 else
 O_LEVEL ?= 2
 endif
-CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -DMODERN=1 -DTESTING=$(TEST) -D$(GAME_VERSION) -std=gnu17
+CPPFLAGS := $(INCLUDE_CPP_ARGS) -Wno-trigraphs -DMODERN=1 -DTESTING=$(TEST) -D$(GAME_VERSION) -std=gnu17 -ffreestanding -isystem $(CURDIR)/tools/toolchain-shims
 ifeq ($(RELEASE),1)
 	override CPPFLAGS += -DRELEASE
 	ifeq ($(USE_LTO_ON_RELEASE),1)
@@ -168,6 +168,10 @@ PATH_ARMCC := PATH="$(PATH)" $(ARMCC)
 CC1 := $(shell $(PATH_ARMCC) --print-prog-name=cc1) -quiet
 
 override CFLAGS += -mthumb -mthumb-interwork -O$(O_LEVEL) -mabi=apcs-gnu -mtune=arm7tdmi -march=armv4t -Wno-pointer-to-int-cast -std=gnu17 -Werror -Wall -Wno-strict-aliasing -Wno-attribute-alias -Woverride-init -Wnonnull -Wenum-conversion
+# Homebrew arm-none-eabi-gcc 16+ ships without newlib. -ffreestanding makes GCC
+# use its own bundled stdint-gcc.h instead of #include_next-ing newlib's stdint.h.
+# The shim directory supplies alloca.h and a minimal stdio.h for the few files that need them.
+override CFLAGS += -ffreestanding -isystem $(CURDIR)/tools/toolchain-shims
 
 ifneq ($(LTO),0)
   ifneq ($(TEST),1)
@@ -192,7 +196,14 @@ ifeq ($(DEPRECATED_ERROR),0)
 endif
 
 LIBPATH := -L "$(dir $(shell $(PATH_ARMCC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(PATH_ARMCC) -mthumb -print-file-name=libnosys.a))" -L "$(dir $(shell $(PATH_ARMCC) -mthumb -print-file-name=libc.a))"
+# Only link with newlib (-lc -lnosys) when it's actually installed.
+# Homebrew arm-none-eabi-gcc 16.1.0 ships without newlib; the GBA code uses builtins.
+LIBC_RESOLVED := $(shell $(PATH_ARMCC) -mthumb -print-file-name=libc.a 2>/dev/null)
+ifneq ($(LIBC_RESOLVED),libc.a)
 LIB := $(LIBPATH) -lc -lnosys -lgcc -L../../libagbsyscall -lagbsyscall
+else
+LIB := $(LIBPATH) -lgcc -L../../libagbsyscall -lagbsyscall
+endif
 # Enable debug info if set
 ifeq ($(DINFO),1)
   override CFLAGS += -g
@@ -455,7 +466,8 @@ $(C_BUILDDIR)/berry_crush.o: override CFLAGS += -Wno-address-of-packed-member
 $(C_BUILDDIR)/agb_flash.o: override CFLAGS += -fno-toplevel-reorder
 $(C_BUILDDIR)/pokedex_plus_hgss.o: CFLAGS := -mthumb -mthumb-interwork -O2 -mabi=apcs-gnu -mtune=arm7tdmi -march=armv4t -Wno-pointer-to-int-cast -std=gnu17 -Werror -Wall -Wno-strict-aliasing -Wno-attribute-alias -Woverride-init
 # Annoyingly we can't turn this on just for src/data/trainers.h
-$(C_BUILDDIR)/data.o: CFLAGS += -fno-show-column -fno-diagnostics-show-caret
+# -Wno-error=override-init: data.c intentionally overrides FRLG rival trainer slots
+$(C_BUILDDIR)/data.o: CFLAGS += -fno-show-column -fno-diagnostics-show-caret -Wno-error=override-init
 
 # Needed for parity with pret
 $(C_BUILDDIR)/graphics.o: override CFLAGS += -Wno-missing-braces

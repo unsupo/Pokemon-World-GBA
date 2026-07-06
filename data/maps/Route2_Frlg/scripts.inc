@@ -1,3 +1,6 @@
+@ Local object event ID for the Prof Birch assistant NPC (not yet placed in events.inc)
+.set ProfBirchAssistant, 7
+
 Route2_Frlg_MapScripts::
 	.byte 0
 

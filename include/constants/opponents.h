@@ -1256,13 +1256,13 @@
 #define TRAINER_CUE_BALL_PAXTON 1523
 
 // Kanto rival entries (standalone battles, not from trainers_frlg.h data)
-// Keep at 855-857 for the inline data.c entries.
+// 855-870 are gym leader T6/T7 entries; use the gap at 871-873 to avoid collision.
 #undef TRAINER_RIVAL_OAKS_LAB_SQUIRTLE
-#define TRAINER_RIVAL_OAKS_LAB_SQUIRTLE   855
+#define TRAINER_RIVAL_OAKS_LAB_SQUIRTLE   871
 #undef TRAINER_RIVAL_OAKS_LAB_BULBASAUR
-#define TRAINER_RIVAL_OAKS_LAB_BULBASAUR  856
+#define TRAINER_RIVAL_OAKS_LAB_BULBASAUR  872
 #undef TRAINER_RIVAL_OAKS_LAB_CHARMANDER
-#define TRAINER_RIVAL_OAKS_LAB_CHARMANDER 857
+#define TRAINER_RIVAL_OAKS_LAB_CHARMANDER 873
 #endif
 
 #define TRAINER_NONE                          0

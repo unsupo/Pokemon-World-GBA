@@ -235,7 +235,7 @@ const struct Trainer gTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT] =
 #include "data/trainers.h"
     // FRLG trainers for Kanto new game (IDs remapped to 900+ range via opponents.h)
 #include "data/trainers_frlg.h"
-    // Explicit FRLG rival trainers (indices remapped from FRLG 226-228 to 855-857)
+    // Explicit FRLG rival trainers (indices 871-873 in gTrainers array)
     [DIFFICULTY_NORMAL][TRAINER_RIVAL_OAKS_LAB_SQUIRTLE] = {
         .trainerName = _("TERRY"),
         .trainerClass = TRAINER_CLASS_RIVAL_EARLY_FRLG,

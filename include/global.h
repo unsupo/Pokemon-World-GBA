@@ -1208,7 +1208,7 @@ struct SaveBlock1
     u8 rivalName[PLAYER_NAME_LENGTH + 1];
     struct DaycareMon route5DayCareMon;
     // Rematch stage per trainer: 0 = not beaten, 1 = first defeat, 2-5 = rematch stage
-    u8 trainerRematchStages[1024];
+    u8 trainerRematchStages[TRAINER_REMATCH_MAX_ID];
     // sizeof: 0x3???
 };
 

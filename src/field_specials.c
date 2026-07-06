@@ -395,6 +395,11 @@ enum SSTidalLocation GetSSTidalLocation(s8 *mapGroup, s8 *mapNum, s16 *x, s16 *y
             *x = 224 - *varCruiseStepCount;
         }
         break;
+    case SS_TIDAL_BOARD_KANTO:
+    case SS_TIDAL_LAND_KANTO:
+    case SS_TIDAL_BOARD_HOENN:
+    case SS_TIDAL_LAND_HOENN:
+        return SS_TIDAL_LOCATION_SLATEPORT;
     }
     *mapGroup = MAP_GROUP(MAP_ROUTE132);
     *y = 20;

@@ -99,5 +99,23 @@ enum
 #ifndef MAP_SSAQUA_1F
 #define MAP_SSAQUA_1F                       MAP_DYNAMIC
 #endif
+#ifndef MAP_NEW_BARK_TOWN
+#define MAP_NEW_BARK_TOWN                   MAP_DYNAMIC
+#endif
+#ifndef MAP_AZALEA_TOWN
+#define MAP_AZALEA_TOWN                     MAP_DYNAMIC
+#endif
+// Sinnoh maps not yet imported
+#ifndef MAP_TWINLEAF_TOWN_MAIN_HOUSE_2F
+#define MAP_TWINLEAF_TOWN_MAIN_HOUSE_2F     MAP_DYNAMIC
+#endif
+// Johto city ports for ferry destinations
+#ifndef MAP_OLIVINE_CITY_PORT_INSIDE
+#define MAP_OLIVINE_CITY_PORT_INSIDE        MAP_DYNAMIC
+#endif
+// Sinnoh towns not yet imported
+#ifndef MAP_SANDGEM_TOWN
+#define MAP_SANDGEM_TOWN                    MAP_DYNAMIC
+#endif
 
 #endif  // GUARD_CONSTANTS_MAPS_H
