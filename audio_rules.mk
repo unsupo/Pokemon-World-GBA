@@ -24,9 +24,17 @@ $(CRY_BIN_DIR)/%.bin: $(CRY_SUBDIR)/%.wav
 # NOTE: If using ipatix's High Quality Audio Mixer, remove "--no-pad" below.
 	$(WAV2AGB) -b -c -l 1 --no-pad $< $@
 
+# AIF tool: use sox to convert 16-bit AIFF to 8-bit signed raw PCM
+AIF     := sox
+AIF_FLAGS := -e signed-integer -b 8 -t raw
+
 # Uncompressed cries
 $(CRY_BIN_DIR)/uncomp_%.bin: $(CRY_SUBDIR)/uncomp_%.aif
-	$(AIF) $< $@
+	$(AIF) $< $(AIF_FLAGS) $@
+
+# HGSS direct sound samples
+sound/direct_sound_samples/hg_%.bin: sound/direct_sound_samples/hg_%.aif
+	$(AIF) $< $(AIF_FLAGS) $@
 
 # Uncompressed sounds
 $(SOUND_BIN_DIR)/%.bin: sound/%.wav

@@ -1079,4 +1079,7 @@
 #define METATILE_RSMossdeepGym_Switch_Down           0x239
 #define METATILE_RSMossdeepGym_Switch_Up             0x238
 
+// Johto metatile stubs — placeholder values until proper tilesets are imported
+#define METATILE_R26_21_Broken_Window  0x000
+
 #endif // GUARD_METATILE_LABELS_H

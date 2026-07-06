@@ -382,6 +382,40 @@ VermilionCity_Text_Seagallop12Departing::
 	.string "SEAGALLOP HI-SPEED 12 will be\n"
 	.string "departing immediately.$"
 
+VermilionCity_EventScript_HoennFerrySailor::
+	lock
+	faceplayer
+	msgbox VermilionCity_Text_HoennFerryAvailable, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, VermilionCity_EventScript_HoennFerryDecline
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_HOENN
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 30
+	hideobjectat VAR_LAST_TALKED, MAP_VERMILION_CITY
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 30
+	hideplayer
+	warp MAP_SS_TIDAL_CORRIDOR, 1, 10
+	waitstate
+	release
+	end
+
+VermilionCity_EventScript_HoennFerryDecline::
+	msgbox VermilionCity_Text_HoennFerryDecline, MSGBOX_DEFAULT
+	release
+	end
+
+VermilionCity_Text_HoennFerryAvailable::
+	.string "The S.S. TIDAL is ready to sail\n"
+	.string "for HOENN!\p"
+	.string "Would you like to board?$"
+
+VermilionCity_Text_HoennFerryDecline::
+	.string "Come back when you're ready\n"
+	.string "to sail for HOENN!$"
+
 VermilionCity_Text_Route2AideHasPackageForYou::
 	.string "Oh, hello, {PLAYER}!\n"
 	.string "How are you doing?\p"

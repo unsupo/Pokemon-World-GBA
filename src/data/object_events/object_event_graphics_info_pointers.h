@@ -243,6 +243,20 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedFieldMov
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedFish;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedVSSeeker;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedVSSeekerBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldSurf;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldFish;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldVSSeeker;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GoldVSSeekerBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KrisNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KrisBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KrisSurf;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KrisFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KrisFish;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KrisVSSeeker;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_KrisVSSeekerBike;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GreenNormal;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GreenBike;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GreenSurf;
@@ -645,7 +659,6 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_OW_MON] =                   &gObjectEventGraphicsInfo_Follower,
     [OBJ_EVENT_GFX_LIGHT_SPRITE] =             &gObjectEventGraphicsInfo_BallLight,
     [OBJ_EVENT_GFX_APRICORN_TREE] =            &gObjectEventGraphicsInfo_ApricornTree,
-#if IS_FRLG
     [OBJ_EVENT_GFX_RED_NORMAL] =               &gObjectEventGraphicsInfo_RedNormal,
     [OBJ_EVENT_GFX_RED_BIKE] =                 &gObjectEventGraphicsInfo_RedBike,
     [OBJ_EVENT_GFX_RED_SURF] =                 &gObjectEventGraphicsInfo_RedSurf,
@@ -790,7 +803,20 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DEOXYS_A]                 = &gObjectEventGraphicsInfo_DeoxysA,
     [OBJ_EVENT_GFX_DEOXYS_N]                 = &gObjectEventGraphicsInfo_DeoxysN,
     [OBJ_EVENT_GFX_SS_ANNE]                  = &gObjectEventGraphicsInfo_SSAnne,
-#endif // IS_FRLG
+    [OBJ_EVENT_GFX_GOLD_NORMAL] =              &gObjectEventGraphicsInfo_GoldNormal,
+    [OBJ_EVENT_GFX_GOLD_BIKE] =                &gObjectEventGraphicsInfo_GoldBike,
+    [OBJ_EVENT_GFX_GOLD_SURF] =                &gObjectEventGraphicsInfo_GoldSurf,
+    [OBJ_EVENT_GFX_GOLD_FIELD_MOVE] =          &gObjectEventGraphicsInfo_GoldFieldMove,
+    [OBJ_EVENT_GFX_GOLD_FISH] =                &gObjectEventGraphicsInfo_GoldFish,
+    [OBJ_EVENT_GFX_GOLD_VS_SEEKER] =           &gObjectEventGraphicsInfo_GoldVSSeeker,
+    [OBJ_EVENT_GFX_GOLD_VS_SEEKER_BIKE] =      &gObjectEventGraphicsInfo_GoldVSSeekerBike,
+    [OBJ_EVENT_GFX_KRIS_NORMAL] =              &gObjectEventGraphicsInfo_KrisNormal,
+    [OBJ_EVENT_GFX_KRIS_BIKE] =                &gObjectEventGraphicsInfo_KrisBike,
+    [OBJ_EVENT_GFX_KRIS_SURF] =                &gObjectEventGraphicsInfo_KrisSurf,
+    [OBJ_EVENT_GFX_KRIS_FIELD_MOVE] =          &gObjectEventGraphicsInfo_KrisFieldMove,
+    [OBJ_EVENT_GFX_KRIS_FISH] =                &gObjectEventGraphicsInfo_KrisFish,
+    [OBJ_EVENT_GFX_KRIS_VS_SEEKER] =           &gObjectEventGraphicsInfo_KrisVSSeeker,
+    [OBJ_EVENT_GFX_KRIS_VS_SEEKER_BIKE] =      &gObjectEventGraphicsInfo_KrisVSSeekerBike,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

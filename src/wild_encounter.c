@@ -21,6 +21,7 @@
 #include "script.h"
 #include "tv.h"
 #include "wild_encounter.h"
+#include "field_specials.h"
 #include "battle_debug.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
@@ -322,6 +323,12 @@ static u32 ChooseWildMonIndex_Fishing(u8 rod)
     return wildMonIndex;
 }
 
+static u8 ApplyWildLevelScaling(u8 baseLevel)
+{
+    u16 scaled = (u16)baseLevel + GetGlobalBadgeCount() * 2;
+    return (u8)(scaled > 100 ? 100 : scaled);
+}
+
 u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIndex, enum WildPokemonArea area)
 {
     u8 min;
@@ -358,16 +365,16 @@ u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon, u8 wildMonIndex, en
                     rand--;
             }
         }
-        return min + rand;
+        return ApplyWildLevelScaling(min + rand);
     }
     else
     {
         // Looks for the max level of all slots that share the same species as the selected slot.
         max = GetMaxLevelOfSpeciesInWildTable(wildPokemon, wildPokemon[wildMonIndex].species, area);
         if (max > 0)
-            return max + 1;
+            return ApplyWildLevelScaling(max + 1);
         else // Failsafe
-            return wildPokemon[wildMonIndex].maxLevel + 1;
+            return ApplyWildLevelScaling(wildPokemon[wildMonIndex].maxLevel + 1);
     }
 }
 

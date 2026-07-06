@@ -466,7 +466,6 @@ const u32 gObjectEventPic_ApricornTree[] = INCGFX_U32("graphics/object_events/pi
 
 const u32 gFieldEffectObjectPic_ShinySparkle[] = INCGFX_U32("graphics/field_effects/pics/shiny_sparkle.png", ".4bpp", "-mwidth 2 -mheight 4");
 
-#if IS_FRLG
 
 const u16 gObjectEventPic_RedNormal[] = INCGFX_U16("graphics/object_events/pics/people/red/red_normal.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u16 gObjectEventPic_RedBike[] = INCGFX_U16("graphics/object_events/pics/people/red/red_bike.png", ".4bpp", "-mwidth 4 -mheight 4");
@@ -475,6 +474,20 @@ const u16 gObjectEventPic_RedSurfRun[] = INCGFX_U16("graphics/object_events/pics
 const u16 gObjectEventPic_RedFish[] = INCGFX_U16("graphics/object_events/pics/people/red/red_fish.png", ".4bpp", "-mwidth 4 -mheight 4");
 const u16 gObjectEventPic_RedItem[] = INCGFX_U16("graphics/object_events/pics/people/red/red_item.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u16 gObjectEventPic_RedVSSeekerBike[] = INCGFX_U16("graphics/object_events/pics/people/red/red_vs_seeker_bike.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_GoldNormal[] = INCGFX_U16("graphics/object_events/pics/people/gold/gold_normal.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPic_GoldBike[] = INCGFX_U16("graphics/object_events/pics/people/gold/gold_bike.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_GoldSurf[] = INCGFX_U16("graphics/object_events/pics/people/gold/gold_surf.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_GoldSurfRun[] = INCGFX_U16("graphics/object_events/pics/people/gold/gold_surf_run.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPic_GoldFish[] = INCGFX_U16("graphics/object_events/pics/people/gold/gold_fish.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_GoldItem[] = INCGFX_U16("graphics/object_events/pics/people/gold/gold_item.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPic_GoldVSSeekerBike[] = INCGFX_U16("graphics/object_events/pics/people/gold/gold_vs_seeker_bike.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_KrisNormal[] = INCGFX_U16("graphics/object_events/pics/people/kris/kris_normal.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPic_KrisBike[] = INCGFX_U16("graphics/object_events/pics/people/kris/kris_bike.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_KrisSurf[] = INCGFX_U16("graphics/object_events/pics/people/kris/kris_surf.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_KrisSurfRun[] = INCGFX_U16("graphics/object_events/pics/people/kris/kris_surf_run.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPic_KrisFish[] = INCGFX_U16("graphics/object_events/pics/people/kris/kris_fish.png", ".4bpp", "-mwidth 4 -mheight 4");
+const u16 gObjectEventPic_KrisItem[] = INCGFX_U16("graphics/object_events/pics/people/kris/kris_item.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPic_KrisVSSeekerBike[] = INCGFX_U16("graphics/object_events/pics/people/kris/kris_vs_seeker_bike.png", ".4bpp", "-mwidth 4 -mheight 4");
 const u16 gObjectEventPic_GreenNormal[] = INCGFX_U16("graphics/object_events/pics/people/leaf/green_normal.png", ".4bpp", "-mwidth 2 -mheight 4");
 const u16 gObjectEventPic_GreenBike[] = INCGFX_U16("graphics/object_events/pics/people/leaf/green_bike.png", ".4bpp", "-mwidth 4 -mheight 4");
 const u16 gObjectEventPic_GreenSurf[] = INCGFX_U16("graphics/object_events/pics/people/leaf/green_surf.png", ".4bpp", "-mwidth 4 -mheight 4");
@@ -632,4 +645,3 @@ const u16 gObjectEventPic_JigglypuffOld[] = INCGFX_U16("graphics/object_events/p
 const u16 gObjectEventPic_PidgeyOld[] = INCGFX_U16("graphics/object_events/pics/pokemon_old/pidgey.png", ".4bpp", "-mwidth 2 -mheight 2");
 const u16 gObjectEventPic_ClefairyOld[] = INCGFX_U16("graphics/object_events/pics/pokemon_old/clefairy.png", ".4bpp", "-mwidth 2 -mheight 2");
 
-#endif // IS_FRLG

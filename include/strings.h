@@ -199,6 +199,9 @@ extern const u8 gText_FemaleSymbol[];
 
 extern const u8 gText_SelectorArrow3[];
 extern const u8 gText_YesNo[];
+extern const u8 gText_HoennKanto[];
+extern const u8 gText_HoennKantoYellow[];
+extern const u8 gText_HoennKantoYellowJohto[];
 
 // main menu/birch speech text
 extern const u8 gText_Birch_Welcome[];
@@ -208,7 +211,10 @@ extern const u8 gText_Birch_AndYouAre[];
 extern const u8 gText_Birch_BoyOrGirl[];
 extern const u8 gText_Birch_WhatsYourName[];
 extern const u8 gText_Birch_SoItsPlayer[];
+extern const u8 gText_Birch_WhichAvatarStyle[];
 extern const u8 gText_Birch_YourePlayer[];
+extern const u8 gText_Birch_WhichRegion[];
+extern const u8 gText_Birch_HardMode[];
 extern const u8 gText_Birch_AreYouReady[];
 
 extern const u8 gText_BirchInTrouble[];

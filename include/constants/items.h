@@ -1052,9 +1052,29 @@ enum __attribute__((packed)) Item
     ITEM_TATSUGIRINITE = 872,
     ITEM_GLIMMORANITE = 873,
 
+    // Johto key items
+    ITEM_GS_BALL,
+    ITEM_CLEAR_BELL,
+    ITEM_TIDAL_BELL,
+    ITEM_RAINBOW_WING,
+    ITEM_SILVER_WING,
+    ITEM_RED_SCALE,
+    ITEM_MYSTERY_EGG,
+    ITEM_SECRET_POTION,
+    ITEM_SQUIRT_BOTTLE,
+    ITEM_PASS,         // Magnet Train Pass
+    ITEM_RADIO,        // Radio Card
+    ITEM_ID,           // ID Card (Goldenrod Game Corner)
+    ITEM_EXP_SHARE_SMALL,  // HnS Exp. Share key item variant
+
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,
 };
+
+// HnS script quirks: these are actually FLAG names used where item IDs were expected
+// Defined as ITEM_NONE to avoid compile errors; they function as no-ops at runtime
+#define ITEM_ICEPATH4_TM_BLIZZARD   ITEM_NONE
+#define ITEM_SLOWPOKE_WELL_RAIN_DANCE ITEM_NONE
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow

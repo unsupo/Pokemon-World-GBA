@@ -42,12 +42,30 @@ gText_Birch_WhatsYourName::
 gText_Birch_SoItsPlayer::
 	.string "So it's {PLAYER}{KUN}?$"
 
+gText_Birch_WhichAvatarStyle::
+	.string "Which style do you prefer?\n"
+	.string "HOENN or KANTO?$"
+
 gText_Birch_YourePlayer::
 	.string "Ah, okay!\p"
 	.string "You're {PLAYER}{KUN} who's moving to my\n"
 	.string "hometown of LITTLEROOT.\l"
 	.string "I get it now!\p"
 	.string "$"
+
+gText_Birch_WhichRegion::
+	.string "One more thing!\p"
+	.string "Which region would you like to\n"
+	.string "start your adventure in?\l"
+	.string "HOENN, KANTO, JOHTO, or SINNOH?$"
+
+gText_Birch_HardMode::
+	.string "Last question!\p"
+	.string "Would you like to play in\n"
+	.string "HARD MODE?\l"
+	.string "Set battle style, no items\n"
+	.string "during trainer battles, and\l"
+	.string "level caps per gym badge.$"
 
 gText_Birch_AreYouReady::
 	.string "All right, are you ready?\p"

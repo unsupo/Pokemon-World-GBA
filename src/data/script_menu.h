@@ -295,6 +295,11 @@ static const struct MenuAction MultichoiceList_HowsFishing[] =
 };
 
 const u8 gText_LilycoveCity[] = _("LILYCOVE CITY");
+const u8 gText_KantoRegion[] = _("KANTO REGION");
+const u8 gText_HoennRegion[] = _("HOENN REGION");
+const u8 gText_JohtoRegion[] = _("JOHTO REGION");
+const u8 gText_SinnohRegion[] = _("SINNOH REGION");
+const u8 gText_VermilionCity[] = _("VERMILION CITY");
 
 static const struct MenuAction MultichoiceList_SSTidalSlateportWithBF[] =
 {
@@ -319,6 +324,58 @@ static const struct MenuAction MultichoiceList_RightLeft[] =
 static const struct MenuAction MultichoiceList_SSTidalSlateportNoBF[] =
 {
     {gText_LilycoveCity},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_SSTidalSlateportNoBFKanto[] =
+{
+    {gText_LilycoveCity},
+    {gText_KantoRegion},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_SSTidalSlateportWithBFKanto[] =
+{
+    {gText_LilycoveCity},
+    {gText_BattleFrontier},
+    {gText_KantoRegion},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_SSTidalSlateportNoBFKantoJohto[] =
+{
+    {gText_LilycoveCity},
+    {gText_KantoRegion},
+    {gText_JohtoRegion},
+    {gText_SinnohRegion},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_SSTidalSlateportWithBFKantoJohto[] =
+{
+    {gText_LilycoveCity},
+    {gText_BattleFrontier},
+    {gText_KantoRegion},
+    {gText_JohtoRegion},
+    {gText_SinnohRegion},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_OlivineHarborInitial[] =
+{
+    {gText_KantoRegion},
+    {gText_HoennRegion},
+    {gText_Exit},
+};
+
+static const struct MenuAction MultichoiceList_OlivineHarbor[] =
+{
+    {gText_VermilionCity},
+    {gText_HoennRegion},
+    {gText_SouthernIsland},
+    {gText_BirthIsland},
+    {gText_FarawayIsland},
+    {gText_BattleFrontier},
     {gText_Exit},
 };
 
@@ -1294,6 +1351,12 @@ static const struct MultichoiceListStruct sMultichoiceLists[] =
     [MULTI_HOF_VICTORIES_QUIT]                         = MULTICHOICE(sMultichoiceList_HOF_Victories_Quit),
     [MULTI_EGGS_VICTORIES_QUIT]                        = MULTICHOICE(sMultichoiceList_Eggs_Victories_Quit),
     [MULTI_HOF_EGGS_VICTORIES_QUIT]                    = MULTICHOICE(sMultichoiceList_HOF_Eggs_Victories_Quit),
+    [MULTI_SSTIDAL_SLATEPORT_NO_BF_KANTO]             = MULTICHOICE(MultichoiceList_SSTidalSlateportNoBFKanto),
+    [MULTI_SSTIDAL_SLATEPORT_WITH_BF_KANTO]           = MULTICHOICE(MultichoiceList_SSTidalSlateportWithBFKanto),
+    [MULTI_SSTIDAL_SLATEPORT_NO_BF_KANTO_JOHTO]       = MULTICHOICE(MultichoiceList_SSTidalSlateportNoBFKantoJohto),
+    [MULTI_SSTIDAL_SLATEPORT_WITH_BF_KANTO_JOHTO]     = MULTICHOICE(MultichoiceList_SSTidalSlateportWithBFKantoJohto),
+    [MULTI_OLIVINE_HARBOR]                            = MULTICHOICE(MultichoiceList_OlivineHarbor),
+    [MULTI_OLIVINE_HARBOR_INITIAL]                    = MULTICHOICE(MultichoiceList_OlivineHarborInitial),
 };
 
 const u8 *const gStdStrings[] =

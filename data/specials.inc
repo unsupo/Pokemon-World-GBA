@@ -639,3 +639,23 @@ gSpecials::
 	def_special UpdateTrainerCardPhotoIcons
 	def_special StickerManGetBragFlags
 	def_special CheckAddCoins
+	@ Johto HnS stub specials (TODO: implement these)
+	def_special CheckAerodactyl
+	def_special CheckHooh
+	def_special CheckKabuto
+	def_special CheckOmanyte
+	def_special CheckTogepi
+	def_special DoSlidingPuzzle
+	def_special GetMaxPartySize
+	def_special HaircutBrother1
+	def_special IsNuzlockeNicknamingActive
+	def_special IsRandomMovesActivated
+	def_special NameRival
+	def_special ShowBugContestChosenMon
+	def_special ToggleShinyColors
+	def_special Special_GetGlobalBadgeCount
+	def_special Special_GetGlobalBadgeTier
+	def_special Special_CheckEliteFourEligibility
+	def_special Special_GetTrainerRematchStage
+	def_special Special_GetMaxRematchStage
+	def_special Special_CountBeatenChampions

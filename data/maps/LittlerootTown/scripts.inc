@@ -242,8 +242,68 @@ LittlerootTown_EventScript_SetRivalBirchPosForDexUpgradeFemale::
 	end
 
 LittlerootTown_EventScript_FatMan::
-	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_NPC
+	lock
+	faceplayer
+	msgbox LittlerootTown_Text_AskEnableStealing, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_FatManEnableSteal
+	clearflag FLAG_ENABLE_STEALING
+	msgbox LittlerootTown_Text_StealingDisabled, MSGBOX_DEFAULT
+	release
 	end
+
+LittlerootTown_EventScript_FatManEnableSteal::
+	giveitem ITEM_MASTER_BALL, 10
+	giveitem ITEM_MEGA_RING
+	giveitem ITEM_Z_POWER_RING
+	giveitem ITEM_DYNAMAX_BAND
+	giveitem ITEM_TERA_ORB
+	setflag FLAG_ENABLE_STEALING
+	msgbox LittlerootTown_Text_StealingEnabled, MSGBOX_DEFAULT
+	goto LittlerootTown_EventScript_FatManBattleCheck
+
+LittlerootTown_EventScript_FatManBattleCheck::
+	msgbox LittlerootTown_Text_TestBattle, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_FatManBattle
+	release
+	end
+
+LittlerootTown_EventScript_FatManBattle::
+	trainerbattle_single TRAINER_SAWYER_1, LittlerootTown_Text_SawyerIntro, LittlerootTown_Text_SawyerDefeat, LittlerootTown_EventScript_FatManPostBattle
+	goto LittlerootTown_EventScript_FatManPostBattle
+	end
+
+LittlerootTown_EventScript_FatManPostBattle::
+	msgbox LittlerootTown_Text_WarpToKanto, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_WarpToKanto
+	release
+	end
+
+LittlerootTown_EventScript_WarpToKanto::
+	warp MAP_PALLET_TOWN, 5, 5
+	waitstate
+	release
+	end
+
+LittlerootTown_Text_AskEnableStealing:
+	.string "Would you like to turn on the\nPokémon Stealing mechanic?$"
+
+LittlerootTown_Text_StealingEnabled:
+	.string "Stealing mechanic is now ENABLED!$"
+
+LittlerootTown_Text_StealingDisabled:
+	.string "Stealing mechanic is now DISABLED.$"
+
+LittlerootTown_Text_TestBattle:
+	.string "Would you like to test it out in\na battle with me?$"
+
+LittlerootTown_Text_SawyerIntro:
+	.string "Let's test the stealing mechanic!$"
+
+LittlerootTown_Text_SawyerDefeat:
+	.string "Did you snag my Pokémon?!$"
+
+LittlerootTown_Text_WarpToKanto:
+	.string "Warp to Kanto?$"
 
 LittlerootTown_EventScript_Boy::
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_NPC
@@ -1013,4 +1073,12 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
+
+LittlerootTown_EventScript_RegionWarper::
+	lock
+	faceplayer
+	msgbox LittlerootTown_Text_WarpToKanto, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_WarpToKanto
+	release
+	end
 

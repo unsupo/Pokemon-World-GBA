@@ -42,6 +42,7 @@
 #include "decoration_inventory.h"
 #include "secret_base.h"
 #include "string_util.h"
+#include "event_scripts.h"
 #include "player_pc.h"
 #include "field_specials.h"
 #include "berry_powder.h"
@@ -54,6 +55,7 @@
 
 extern const u8 EventScript_ResetAllMapFlags[];
 extern const u8 EventScript_ResetAllMapFlagsFrlg[];
+extern const u8 EventScript_ResetAllMapFlagsJohto[];
 
 static void ClearFrontierRecord(void);
 static void WarpToTruck(void);
@@ -63,6 +65,9 @@ static void ResetDexNav(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
+EWRAM_DATA u8 gNewGameRegion = STARTING_REGION_HOENN;
+EWRAM_DATA u8 gNewGameAvatarStyle = 0;
+EWRAM_DATA u8 gNewGameHardMode = 0;
 
 static const struct ContestWinner sContestWinnerPicDummy =
 {
@@ -135,8 +140,12 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-    if (IS_FRLG)
+    if (gNewGameRegion == STARTING_REGION_KANTO || gNewGameRegion == STARTING_REGION_YELLOW)
         SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), WARP_ID_NONE, 6, 6);
+    else if (gNewGameRegion == STARTING_REGION_JOHTO)
+        SetWarpDestination(MAP_GROUP(MAP_NEW_BARK_TOWN), MAP_NUM(MAP_NEW_BARK_TOWN), WARP_ID_NONE, 20, 13);
+    else if (gNewGameRegion == STARTING_REGION_SINNOH)
+        SetWarpDestination(MAP_GROUP(MAP_TWINLEAF_TOWN_MAIN_HOUSE_2F), MAP_NUM(MAP_TWINLEAF_TOWN_MAIN_HOUSE_2F), WARP_ID_NONE, 7, 2);
     else
         SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
     WarpIntoMap();
@@ -160,80 +169,170 @@ void ResetMenuAndMonGlobals(void)
 
 void NewGameInitData(void)
 {
-#if IS_FRLG
     u8 rivalName[PLAYER_NAME_LENGTH + 1];
-#endif
+    DebugPrintf("NewGameInitData: START");
     if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
         RtcReset();
-
-#if IS_FRLG
-    StringCopy(rivalName, gSaveBlock1Ptr->rivalName);
-#endif
+    DebugPrintf("NewGameInitData: StringCopy-rivalName");
+    memcpy(rivalName, gSaveBlock1Ptr->rivalName, PLAYER_NAME_LENGTH + 1);
+    rivalName[PLAYER_NAME_LENGTH] = EOS; // ensure termination if source had no EOS
+    DebugPrintf("NewGameInitData: ZeroPartyMons");
     gDifferentSaveFile = TRUE;
     gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
+    DebugPrintf("NewGameInitData: ResetPokedex");
     ResetPokedex();
+    DebugPrintf("NewGameInitData: ClearFrontierRecord");
     ClearFrontierRecord();
+    DebugPrintf("NewGameInitData: ClearSav1");
     ClearSav1();
+    DebugPrintf("NewGameInitData: ClearSav3");
     ClearSav3();
+    DebugPrintf("NewGameInitData: ClearAllMail");
     ClearAllMail();
+    DebugPrintf("NewGameInitData: InitPlayerTrainerId");
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
     gSaveBlock2Ptr->gcnLinkFlags = 0;
     InitPlayerTrainerId();
+    DebugPrintf("NewGameInitData: PlayTimeCounter_Reset");
     PlayTimeCounter_Reset();
+    DebugPrintf("NewGameInitData: ClearPokedexFlags");
     ClearPokedexFlags();
+    DebugPrintf("NewGameInitData: InitEventData");
     InitEventData();
+    DebugPrintf("NewGameInitData: VarSet+ClearTV");
+    VarSet(VAR_AVATAR_STYLE, AVATAR_STYLE_HOENN);
     ClearTVShowData();
+    DebugPrintf("NewGameInitData: ResetGabbyAndTy");
     ResetGabbyAndTy();
+    DebugPrintf("NewGameInitData: ClearSecretBases");
     ClearSecretBases();
+    DebugPrintf("NewGameInitData: ClearBerryTrees");
     ClearBerryTrees();
+    DebugPrintf("NewGameInitData: SetMoney");
     SetMoney(&gSaveBlock1Ptr->money, 3000);
     SetCoins(0);
+    DebugPrintf("NewGameInitData: ResetGameStats");
     ResetLinkContestBoolean();
     ResetGameStats();
+    DebugPrintf("NewGameInitData: ClearAllContestWinnerPics");
     ClearAllContestWinnerPics();
+    DebugPrintf("NewGameInitData: ClearPlayerLinkBattleRecords");
     ClearPlayerLinkBattleRecords();
+    DebugPrintf("NewGameInitData: InitSeedotSizeRecord");
     InitSeedotSizeRecord();
     InitLotadSizeRecord();
+    DebugPrintf("NewGameInitData: ResetPokemonStorageSystem");
     gPartiesCount[B_TRAINER_PLAYER] = 0;
     ZeroPlayerPartyMons();
     ResetPokemonStorageSystem();
+    DebugPrintf("NewGameInitData: DeactivateAllRoamers");
     DeactivateAllRoamers();
+    DebugPrintf("NewGameInitData: registeredItem");
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+    DebugPrintf("NewGameInitData: ClearBag");
     ClearBag();
+    DebugPrintf("NewGameInitData: NewGameInitPCItems");
     NewGameInitPCItems();
+    DebugPrintf("NewGameInitData: ClearPokeblocks");
     ClearPokeblocks();
+    DebugPrintf("NewGameInitData: ClearDecorationInventories");
     ClearDecorationInventories();
+    DebugPrintf("NewGameInitData: InitEasyChatPhrases");
     InitEasyChatPhrases();
+    DebugPrintf("NewGameInitData: SetMauvilleOldMan");
     SetMauvilleOldMan();
+    DebugPrintf("NewGameInitData: InitDewfordTrend");
     InitDewfordTrend();
+    DebugPrintf("NewGameInitData: ResetFanClub");
     ResetFanClub();
+    DebugPrintf("NewGameInitData: ResetLotteryCorner");
     ResetLotteryCorner();
+    DebugPrintf("NewGameInitData: UpdateDailySeed");
     UpdateDailySeed();
+    DebugPrintf("NewGameInitData: WarpToTruck");
     WarpToTruck();
-    if (IS_FRLG)
-        RunScriptImmediately(EventScript_ResetAllMapFlagsFrlg);
-    else
+    DebugPrintf("NewGameInitData: WarpToTruck done warp=%d/%d", gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+    if (gNewGameRegion == STARTING_REGION_KANTO || gNewGameRegion == STARTING_REGION_YELLOW)
+    {
         RunScriptImmediately(EventScript_ResetAllMapFlags);
-#if IS_FRLG
+        RunScriptImmediately(EventScript_ResetAllMapFlagsFrlg);
+        RunScriptImmediately(EventScript_ResetAllMapFlagsJohto);
+        DebugPrintf("NewGameInitData: ResetAllMapFlags done");
+        if (gNewGameRegion == STARTING_REGION_YELLOW)
+            FlagSet(FLAG_YELLOW_MODE);
+        FlagSet(FLAG_TRAVELED_TO_HOENN);
+        FlagSet(FLAG_TRAVELED_TO_JOHTO);
+        FlagSet(FLAG_HIDE_OAK_IN_PALLET_TOWN);
+    }
+    else if (gNewGameRegion == STARTING_REGION_JOHTO)
+    {
+        RunScriptImmediately(EventScript_ResetAllMapFlags);
+        RunScriptImmediately(EventScript_ResetAllMapFlagsFrlg);
+        FlagSet(FLAG_TRAVELED_TO_JOHTO);
+        FlagSet(FLAG_TRAVELED_TO_KANTO);
+        FlagSet(FLAG_TRAVELED_TO_HOENN);
+        FlagSet(FLAG_HIDE_OAK_IN_PALLET_TOWN);
+    }
+    else if (gNewGameRegion == STARTING_REGION_SINNOH)
+    {
+        RunScriptImmediately(EventScript_ResetAllMapFlags);
+        RunScriptImmediately(EventScript_ResetAllMapFlagsFrlg);
+        RunScriptImmediately(EventScript_ResetAllMapFlagsJohto);
+        FlagSet(FLAG_TRAVELED_TO_KANTO);
+        FlagSet(FLAG_TRAVELED_TO_JOHTO);
+        FlagSet(FLAG_TRAVELED_TO_HOENN);
+        FlagSet(FLAG_HIDE_OAK_IN_PALLET_TOWN);
+    }
+    else
+    {
+        RunScriptImmediately(EventScript_ResetAllMapFlags);
+        RunScriptImmediately(EventScript_ResetAllMapFlagsFrlg);
+        RunScriptImmediately(EventScript_ResetAllMapFlagsJohto);
+        FlagSet(FLAG_HIDE_OAK_IN_PALLET_TOWN);
+    }
+    if (gNewGameHardMode)
+        FlagSet(FLAG_HARD_MODE);
+    DebugPrintf("NewGameInitData: region=%d StringCopy rivalName", gNewGameRegion);
+    if (gNewGameRegion == STARTING_REGION_KANTO || gNewGameRegion == STARTING_REGION_YELLOW)
+    {
+        static const u8 sRivalName_Gary[] = _("GARY");
+        StringCopy(gSaveBlock1Ptr->rivalName, sRivalName_Gary);
+    }
+    else
         StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
-#endif
+    DebugPrintf("NewGameInitData: ResetMiniGamesRecords");
     ResetMiniGamesRecords();
+    DebugPrintf("NewGameInitData: InitUnionRoomChatRegisteredTexts");
     InitUnionRoomChatRegisteredTexts();
+    DebugPrintf("NewGameInitData: InitLilycoveLady");
     InitLilycoveLady();
+    DebugPrintf("NewGameInitData: ResetAllApprenticeData");
     ResetAllApprenticeData();
+    DebugPrintf("NewGameInitData: ClearRankingHallRecords");
     ClearRankingHallRecords();
+    DebugPrintf("NewGameInitData: InitMatchCallCounters");
     InitMatchCallCounters();
+    DebugPrintf("NewGameInitData: ClearMysteryGift");
     ClearMysteryGift();
+    DebugPrintf("NewGameInitData: WipeTrainerNameRecords");
     WipeTrainerNameRecords();
+    DebugPrintf("NewGameInitData: ResetTrainerHillResults");
     ResetTrainerHillResults();
+    DebugPrintf("NewGameInitData: ResetTrainerTowerResults");
     ResetTrainerTowerResults();
+    DebugPrintf("NewGameInitData: ResetContestLinkResults");
     ResetContestLinkResults();
+    DebugPrintf("NewGameInitData: SetCurrentDifficultyLevel");
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
+    DebugPrintf("NewGameInitData: ResetItemFlags");
     ResetItemFlags();
+    DebugPrintf("NewGameInitData: ResetDexNav");
     ResetDexNav();
+    DebugPrintf("NewGameInitData: ClearFollowerNPCData");
     ClearFollowerNPCData();
+    DebugPrintf("NewGameInitData: DONE");
 }
 
 static void ResetMiniGamesRecords(void)

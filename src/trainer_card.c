@@ -60,6 +60,10 @@ struct TrainerCardData
     bool8 unused_F;
     bool8 hasTrades;
     u8 badgeCount[NUM_BADGES];
+    u8 badgePage;                      // 0=Hoenn, 1=Kanto, 2=Johto
+    u8 hoennBadgeCount[NUM_BADGES];
+    u8 kantoBadgeCount[NUM_BADGES];
+    u8 johtoBadgeCount[NUM_BADGES];
     u8 easyChatProfile[TRAINER_CARD_PROFILE_LENGTH][13];
     u8 textPlayersCard[70];
     u8 textHofTime[70];
@@ -133,6 +137,10 @@ static void PrintIdOnCard(void);
 static void PrintMoneyOnCard(void);
 static void PrintPokedexOnCard(void);
 static void PrintProfilePhraseOnCard(void);
+static void PrintBadgePageLabelOnCard(void);
+static void SetBadgeCountFromPage(void);
+static void ReloadBadgePageGfx(void);
+static void CycleBadgePage(bool8 forward);
 static bool8 PrintAllOnCardBack(void);
 static void PrintNameOnCardBack(void);
 static void PrintHofDebutTimeOnCard(void);
@@ -190,6 +198,28 @@ static const u16 sTrainerCardSticker3_Pal[]      = INCGFX_U16("graphics/trainer_
 static const u16 sTrainerCardSticker4_Pal[]      = INCGFX_U16("graphics/trainer_card/frlg/stickers4.pal", ".gbapal");
 static const u32 sHoennTrainerCardBadges_Gfx[]   = INCGFX_U32("graphics/trainer_card/badges.png", ".4bpp.smol");
 static const u32 sKantoTrainerCardBadges_Gfx[]   = INCGFX_U32("graphics/trainer_card/frlg/badges.png", ".4bpp.smol");
+// Johto badge art reuses Hoenn sheet until proper sprites are created
+static const u16 sJohtoTrainerCardBadges_Pal[]   = INCGFX_U16("graphics/trainer_card/badges.png", ".gbapal");
+static const u32 sJohtoTrainerCardBadges_Gfx[]   = INCGFX_U32("graphics/trainer_card/badges.png", ".4bpp.smol");
+
+static const u32 *const sBadgesGfxForPage[3] = {
+    sHoennTrainerCardBadges_Gfx,
+    sKantoTrainerCardBadges_Gfx,
+    sJohtoTrainerCardBadges_Gfx,
+};
+static const u16 *const sBadgesPalForPage[3] = {
+    sHoennTrainerCardBadges_Pal,
+    sKantoTrainerCardBadges_Pal,
+    sJohtoTrainerCardBadges_Pal,
+};
+static const u8 sText_BadgePage_Hoenn[] = _("< HOENN >");
+static const u8 sText_BadgePage_Kanto[] = _("< KANTO >");
+static const u8 sText_BadgePage_Johto[] = _("< JOHTO >");
+static const u8 *const sBadgePageLabels[3] = {
+    sText_BadgePage_Hoenn,
+    sText_BadgePage_Kanto,
+    sText_BadgePage_Johto,
+};
 
 static const struct BgTemplate sTrainerCardBgTemplates[4] =
 {
@@ -461,6 +491,14 @@ static void Task_TrainerCard(u8 taskId)
                 BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, sData->blendColor);
                 sData->mainState = STATE_CLOSE_CARD;
             }
+        }
+        else if (!sData->isLink && (JOY_NEW(DPAD_RIGHT) || JOY_NEW(R_BUTTON)))
+        {
+            CycleBadgePage(TRUE);
+        }
+        else if (!sData->isLink && (JOY_NEW(DPAD_LEFT) || JOY_NEW(L_BUTTON)))
+        {
+            CycleBadgePage(FALSE);
         }
         break;
     case STATE_WAIT_FLIP_TO_BACK:
@@ -825,6 +863,9 @@ static void SetDataFromTrainerCard(void)
     sData->unused_F = FALSE;
     sData->hasTrades = FALSE;
     memset(sData->badgeCount, 0, sizeof(sData->badgeCount));
+    memset(sData->hoennBadgeCount, 0, sizeof(sData->hoennBadgeCount));
+    memset(sData->kantoBadgeCount, 0, sizeof(sData->kantoBadgeCount));
+    memset(sData->johtoBadgeCount, 0, sizeof(sData->johtoBadgeCount));
     if (sData->trainerCard.hasPokedex)
         sData->hasPokedex++;
 
@@ -840,11 +881,15 @@ static void SetDataFromTrainerCard(void)
     if (sData->trainerCard.battleTowerWins || sData->trainerCard.battleTowerStraightWins)
         sData->hasBattleTowerWins++;
 
-    for (i = 0, badgeFlag = FLAG_BADGE01_GET; badgeFlag < FLAG_BADGE01_GET + NUM_BADGES; badgeFlag++, i++)
-    {
-        if (FlagGet(badgeFlag))
-            sData->badgeCount[i]++;
-    }
+    for (i = 0, badgeFlag = FLAG_BADGE01_GET; i < NUM_BADGES; badgeFlag++, i++)
+        if (FlagGet(badgeFlag)) sData->hoennBadgeCount[i]++;
+    for (i = 0, badgeFlag = FLAG_KANTO_BADGE01_GET; i < NUM_BADGES; badgeFlag++, i++)
+        if (FlagGet(badgeFlag)) sData->kantoBadgeCount[i]++;
+    for (i = 0, badgeFlag = FLAG_JOHTO_BADGE01_GET; i < NUM_BADGES; badgeFlag++, i++)
+        if (FlagGet(badgeFlag)) sData->johtoBadgeCount[i]++;
+
+    sData->badgePage = (sData->cardType == CARD_TYPE_FRLG) ? 1 : 0;
+    SetBadgeCountFromPage();
 }
 
 static void InitGpuRegs(void)
@@ -940,6 +985,9 @@ static bool8 PrintAllOnCardFront(void)
         break;
     case 5:
         PrintProfilePhraseOnCard();
+        break;
+    case 6:
+        PrintBadgePageLabelOnCard();
         break;
     default:
         sData->printState = 0;
@@ -1495,6 +1543,59 @@ static void DrawCardFrontOrBack(u16 *ptr)
         }
     }
     CopyBgTilemapBufferToVram(0);
+}
+
+static void SetBadgeCountFromPage(void)
+{
+    u8 i;
+    const u8 *src;
+    switch (sData->badgePage)
+    {
+    case 1:  src = sData->kantoBadgeCount; break;
+    case 2:  src = sData->johtoBadgeCount; break;
+    default: src = sData->hoennBadgeCount; break;
+    }
+    for (i = 0; i < NUM_BADGES; i++)
+        sData->badgeCount[i] = src[i];
+}
+
+static void ReloadBadgePageGfx(void)
+{
+    DecompressDataWithHeaderWram(sBadgesGfxForPage[sData->badgePage], sData->badgeTiles);
+    LoadBgTiles(3, sData->badgeTiles, ARRAY_COUNT(sData->badgeTiles), 0);
+    LoadPalette(sBadgesPalForPage[sData->badgePage], BG_PLTT_ID(3), PLTT_SIZE_4BPP);
+}
+
+static void PrintBadgePageLabelOnCard(void)
+{
+    static const u8 yOffsets[] = {108, 100};  // [isHoenn=0 FRLG, isHoenn=1 Hoenn]
+
+    if (!sData->isLink)
+        AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_SMALL,
+            GetStringCenterAlignXOffset(FONT_SMALL, sBadgePageLabels[sData->badgePage], 224),
+            yOffsets[sData->isHoenn], sTrainerCardTextColors, TEXT_SKIP_DRAW,
+            sBadgePageLabels[sData->badgePage]);
+}
+
+static void CycleBadgePage(bool8 forward)
+{
+    u8 badgeY;
+
+    sData->badgePage = forward ? (sData->badgePage + 1) % 3 : (sData->badgePage + 2) % 3;
+    SetBadgeCountFromPage();
+    ReloadBadgePageGfx();
+
+    // Reprint front card text so the region label updates
+    FillWindowPixelBuffer(WIN_CARD_TEXT, PIXEL_FILL(0));
+    sData->printState = 0;
+    while (!PrintAllOnCardFront())
+        ;
+    DrawTrainerCardWindow(WIN_CARD_TEXT);
+
+    // Clear old badge tiles from BG3 then redraw with new region
+    badgeY = IS_FRLG ? 16 : 15;
+    FillBgTilemapBufferRect_Palette0(3, 0, 4, badgeY, 24, 2);
+    DrawStarsAndBadgesOnCard();
 }
 
 static void DrawStarsAndBadgesOnCard(void)

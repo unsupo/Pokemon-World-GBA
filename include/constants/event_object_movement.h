@@ -93,6 +93,9 @@
 #define MOVEMENT_TYPE_DESPAWN_OWE                      0x58
 #define NUM_MOVEMENT_TYPES                             0x59
 
+// HnS-specific movement type stub
+#define MOVEMENT_TYPE_TOWER_BEAM   MOVEMENT_TYPE_NONE
+
 #define MOVEMENT_ACTION_FACE_DOWN                       0x0
 #define MOVEMENT_ACTION_FACE_UP                         0x1
 #define MOVEMENT_ACTION_FACE_LEFT                       0x2

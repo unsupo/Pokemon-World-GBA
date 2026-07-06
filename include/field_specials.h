@@ -41,4 +41,11 @@ bool32 CheckPartyHasSpecies(enum Species);
 bool8 CutMoveRuinValleyCheck(void);
 void CutMoveOpenDottedHoleDoor(void);
 
+// Global badge scaling system
+u8 GetGlobalBadgeCount(void);
+u8 GetGlobalBadgeTier(void);
+void Special_CheckEliteFourEligibility(void);
+void Special_GetGlobalBadgeCount(void);
+void Special_GetGlobalBadgeTier(void);
+
 #endif // GUARD_FIELD_SPECIALS_H

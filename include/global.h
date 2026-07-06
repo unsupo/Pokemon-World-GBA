@@ -150,7 +150,7 @@
 
 // This produces an error at compile-time if expr is zero.
 // It looks like file.c:line: size of array `id' is negative
-#define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
+#define STATIC_ASSERT(expr, id) _Static_assert(expr, #id);
 
 #define FEATURE_FLAG_ASSERT(flag, id) STATIC_ASSERT(flag > TEMP_FLAGS_END || flag == 0, id)
 
@@ -1205,10 +1205,10 @@ struct SaveBlock1
     u32 towerChallengeId;
     struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];
 #endif //FREE_TRAINER_TOWER
-#if IS_FRLG
     u8 rivalName[PLAYER_NAME_LENGTH + 1];
     struct DaycareMon route5DayCareMon;
-#endif
+    // Rematch stage per trainer: 0 = not beaten, 1 = first defeat, 2-5 = rematch stage
+    u8 trainerRematchStages[1024];
     // sizeof: 0x3???
 };
 

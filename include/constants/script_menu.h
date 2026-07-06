@@ -169,6 +169,25 @@ enum
     MULTI_HOF_VICTORIES_QUIT,
     MULTI_EGGS_VICTORIES_QUIT,
     MULTI_HOF_EGGS_VICTORIES_QUIT,
+    MULTI_SSTIDAL_SLATEPORT_NO_BF_KANTO,         // Lilycove, Kanto Region, Cancel
+    MULTI_SSTIDAL_SLATEPORT_WITH_BF_KANTO,       // Lilycove, Battle Frontier, Kanto Region, Cancel
+    MULTI_SSTIDAL_SLATEPORT_NO_BF_KANTO_JOHTO,   // Lilycove, Kanto Region, Johto Region, Cancel
+    MULTI_SSTIDAL_SLATEPORT_WITH_BF_KANTO_JOHTO, // Lilycove, Battle Frontier, Kanto Region, Johto Region, Cancel
+    // Johto multichoice menus
+    MULTI_5FLOORS,
+    MULTI_7FLOORS,
+    MULTI_DAYS_OF_WEEK,
+    MULTI_ELDERQUIIZ1,
+    MULTI_ELDERQUIIZ2,
+    MULTI_ELDERQUIIZ3,
+    MULTI_ELDERQUIIZ4,
+    MULTI_ELDERQUIIZ5,
+    MULTI_GOLDSILVER,
+    MULTI_KURT_BALLS,
+    MULTI_OLIVINE_HARBOR,         // post-Kanto: Vermilion, Hoenn, SouthernIsland, BirthIsland, FarawayIsland, BattleFrontier, Cancel
+    MULTI_OLIVINE_HARBOR_INITIAL, // pre-Kanto: Kanto Region, Hoenn Region, Cancel
+    MULTI_PRIZE_MONS,
+    // MULTI_FOSSIL already defined above in expansion's original list
 };
 
 #define MULTI_NONE 255

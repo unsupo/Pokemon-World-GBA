@@ -197,6 +197,7 @@ PalletTown_ProfessorOaksLab_Movement_OakBringDexesToDeskSouth::
 	step_end
 
 PalletTown_ProfessorOaksLab_ChooseStarterScene::
+	goto_if_set FLAG_YELLOW_MODE, PalletTown_ProfessorOaksLab_EventScript_YellowPikachuScene
 	lockall
 	textcolor NPC_TEXT_COLOR_MALE
 	applymovement LOCALID_OAKS_LAB_PROF_OAK, PalletTown_ProfessorOaksLab_Movement_OakEnter
@@ -477,6 +478,7 @@ PalletTown_ProfessorOaksLab_EventScript_EndRivalBattle::
 	fadedefaultbgm
 	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 4
 	setflag FLAG_BEAT_RIVAL_IN_OAKS_LAB
+	setflag FLAG_HIDE_RIVAL_IN_LAB
 	releaseall
 	end
 
@@ -912,6 +914,12 @@ PalletTown_ProfessorOaksLab_EventScript_TryStartNationalDexScene::
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_DontStartNationalDexScene::
+	goto_if_unset FLAG_TRAVELED_TO_HOENN, PalletTown_ProfessorOaksLab_EventScript_OakAfterGameClear
+	goto_if_set FLAG_RECEIVED_HOENN_STARTER, PalletTown_ProfessorOaksLab_EventScript_OakAfterGameClear
+	goto PalletTown_ProfessorOaksLab_EventScript_OfferHoennStarter
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_OakAfterGameClear::
 	release
 	end
 
@@ -1080,7 +1088,6 @@ PalletTown_ProfessorOaksLab_EventScript_BulbasaurBall::
 PalletTown_ProfessorOaksLab_EventScript_ConfirmStarterChoice::
 	applymovement LOCALID_OAKS_LAB_PROF_OAK, Common_Movement_FaceRight
 	waitmovement 0
-	showmonpic PLAYER_STARTER_SPECIES, 10, 3
 	textcolor NPC_TEXT_COLOR_MALE
 	goto_if_eq PLAYER_STARTER_NUM, 0, PalletTown_ProfessorOaksLab_EventScript_ConfirmBulbasaur
 	goto_if_eq PLAYER_STARTER_NUM, 1, PalletTown_ProfessorOaksLab_EventScript_ConfirmSquirtle
@@ -1106,12 +1113,10 @@ PalletTown_ProfessorOaksLab_EventScript_ConfirmCharmander::
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_DeclinedStarter::
-	hidemonpic
 	release
 	end
 
 PalletTown_ProfessorOaksLab_EventScript_ChoseStarter::
-	hidemonpic
 	removeobject VAR_LAST_TALKED
 	msgbox PalletTown_ProfessorOaksLab_Text_OakThisMonIsEnergetic
 	call EventScript_RestorePrevTextColor
@@ -1170,6 +1175,9 @@ PalletTown_ProfessorOaksLab_EventScript_RivalTakesStarter::
 	waitmessage
 	playfanfare MUS_RG_OBTAIN_KEY_ITEM
 	waitfanfare
+	setflag FLAG_HIDE_BULBASAUR_BALL
+	setflag FLAG_HIDE_SQUIRTLE_BALL
+	setflag FLAG_HIDE_CHARMANDER_BALL
 	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
 	call_if_set FLAG_OPENED_START_MENU, PalletTown_ProfessorOaksLab_EventScript_ReadyEndSignLadyScene
 	release
@@ -1297,6 +1305,80 @@ PalletTown_ProfessorOaksLab_EventScript_RightSignAlt::
 	msgbox PalletTown_ProfessorOaksLab_Text_AllMonTypesHaveStrongAndWeakPoints
 	releaseall
 	end
+
+@ Yellow mode: Oak gives Pikachu instead of the three-starter choice
+PalletTown_ProfessorOaksLab_EventScript_YellowPikachuScene::
+	goto_if_set FLAG_PIKACHU_RECEIVED, PalletTown_ProfessorOaksLab_EventScript_YellowAlreadyGotPikachu
+	lockall
+	textcolor NPC_TEXT_COLOR_MALE
+	applymovement LOCALID_OAKS_LAB_PROF_OAK, PalletTown_ProfessorOaksLab_Movement_OakEnter
+	waitmovement 0
+	removeobject LOCALID_OAKS_LAB_PROF_OAK
+	setobjectxyperm LOCALID_OAKS_LAB_PROF_OAK, 6, 3
+	setobjectmovementtype LOCALID_OAKS_LAB_PROF_OAK, MOVEMENT_TYPE_FACE_DOWN
+	clearflag FLAG_HIDE_OAK_IN_HIS_LAB
+	applymovement LOCALID_PLAYER, PalletTown_ProfessorOaksLab_Movement_PlayerEnter
+	waitmovement 0
+	clearflag FLAG_DONT_TRANSITION_MUSIC
+	savebgm MUS_DUMMY
+	fadedefaultbgm
+	msgbox PalletTown_ProfessorOaksLab_Text_Yellow_OakWelcome, MSGBOX_DEFAULT
+	closemessage
+	delay 30
+	msgbox PalletTown_ProfessorOaksLab_Text_Yellow_OakPikachuGift, MSGBOX_DEFAULT
+	closemessage
+	setflag FLAG_SYS_POKEMON_GET
+	setflag FLAG_PALLET_LADY_NOT_BLOCKING_SIGN
+	givemon SPECIES_PIKACHU, 5, ITEM_NONE
+	setvar VAR_STARTER_MON, 3
+	bufferspeciesname STR_VAR_1, SPECIES_PIKACHU
+	message PalletTown_ProfessorOaksLab_Text_ReceivedMonFromOak
+	waitmessage
+	playfanfare MUS_RG_OBTAIN_KEY_ITEM
+	waitfanfare
+	msgbox gText_NicknameThisPokemon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PalletTown_ProfessorOaksLab_EventScript_Yellow_NicknamePikachu
+	goto PalletTown_ProfessorOaksLab_EventScript_Yellow_AfterPikachu
+
+PalletTown_ProfessorOaksLab_EventScript_Yellow_NicknamePikachu::
+	setvar VAR_0x8004, 0
+	call Common_EventScript_NameReceivedPartyMon
+	goto PalletTown_ProfessorOaksLab_EventScript_Yellow_AfterPikachu
+
+PalletTown_ProfessorOaksLab_EventScript_Yellow_AfterPikachu::
+	closemessage
+	setflag FLAG_PIKACHU_RECEIVED
+	@ Hide the three starter balls; rival takes Eevee instead
+	setflag FLAG_HIDE_BULBASAUR_BALL
+	setflag FLAG_HIDE_SQUIRTLE_BALL
+	setflag FLAG_HIDE_CHARMANDER_BALL
+	msgbox PalletTown_ProfessorOaksLab_Text_Yellow_RivalTakesEevee, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 4
+	setflag FLAG_VISITED_OAKS_LAB
+	releaseall
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_YellowAlreadyGotPikachu::
+	releaseall
+	end
+
+PalletTown_ProfessorOaksLab_Text_Yellow_OakWelcome:
+	.string "OAK: {PLAYER}! Good, you're here.\p"
+	.string "I've been waiting for you.\n"
+	.string "I have something for you!$"
+
+PalletTown_ProfessorOaksLab_Text_Yellow_OakPikachuGift:
+	.string "OAK: This POKéMON is yours.\p"
+	.string "It's a PIKACHU - a rare and\n"
+	.string "special POKéMON.\p"
+	.string "Take good care of it!$"
+
+PalletTown_ProfessorOaksLab_Text_Yellow_RivalTakesEevee:
+	.string "{RIVAL}: Hey! I get one too!\n"
+	.string "Gramps, I'm taking this EEVEE!\p"
+	.string "I'll beat you soon, {PLAYER}!\n"
+	.string "That's a promise!$"
 
 PalletTown_ProfessorOaksLab_Text_RivalGrampsIsntAround::
 	.string "{RIVAL}: What, it's only {PLAYER}?\n"
@@ -1654,4 +1736,84 @@ PalletTown_ProfessorOaksLab_Text_RivalIllCompleteThePokedex::
 	.string "I think I'll try looking around\n"
 	.string "ONE ISLAND first…\p"
 	.string "Anyways, I'm outta here!$"
+
+@ Hoenn starter offer (for players who traveled to Hoenn)
+PalletTown_ProfessorOaksLab_EventScript_OfferHoennStarter::
+	msgbox PalletTown_ProfessorOaksLab_Text_OakHeardAboutHoenn, MSGBOX_DEFAULT
+	msgbox PalletTown_ProfessorOaksLab_Text_OakChooseHoennStarter, MSGBOX_DEFAULT
+	msgbox PalletTown_ProfessorOaksLab_Text_OakThisIsTreecko, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PalletTown_ProfessorOaksLab_EventScript_GiveTreecko
+	msgbox PalletTown_ProfessorOaksLab_Text_OakThisIsTorchic, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PalletTown_ProfessorOaksLab_EventScript_GiveTorchic
+	msgbox PalletTown_ProfessorOaksLab_Text_OakThisIsMudkip, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PalletTown_ProfessorOaksLab_EventScript_GiveMudkip
+	msgbox PalletTown_ProfessorOaksLab_Text_OakThinkItOver, MSGBOX_DEFAULT
+	release
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_GiveTreecko::
+	givemon SPECIES_TREECKO, 5, ITEM_NONE
+	setflag FLAG_RECEIVED_HOENN_STARTER
+	msgbox PalletTown_ProfessorOaksLab_Text_OakReceivedHoennStarter, MSGBOX_DEFAULT
+	release
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_GiveTorchic::
+	givemon SPECIES_TORCHIC, 5, ITEM_NONE
+	setflag FLAG_RECEIVED_HOENN_STARTER
+	msgbox PalletTown_ProfessorOaksLab_Text_OakReceivedHoennStarter, MSGBOX_DEFAULT
+	release
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_GiveMudkip::
+	givemon SPECIES_MUDKIP, 5, ITEM_NONE
+	setflag FLAG_RECEIVED_HOENN_STARTER
+	msgbox PalletTown_ProfessorOaksLab_Text_OakReceivedHoennStarter, MSGBOX_DEFAULT
+	release
+	end
+
+PalletTown_ProfessorOaksLab_Text_OakHeardAboutHoenn::
+	.string "So you've made it all the way to\n"
+	.string "HOENN, have you?\p"
+	.string "I've been in contact with a colleague\n"
+	.string "of mine there, PROF. BIRCH.\p"
+	.string "He tells me you've been doing splendid\n"
+	.string "work with POKéMON!$"
+
+PalletTown_ProfessorOaksLab_Text_OakChooseHoennStarter::
+	.string "As a little something extra, I've\n"
+	.string "arranged for you to receive one of\l"
+	.string "HOENN's starter POKéMON.\p"
+	.string "PROF. BIRCH sent them over\n"
+	.string "just for you.\p"
+	.string "Which one would you like?$"
+
+PalletTown_ProfessorOaksLab_Text_OakThisIsTreecko::
+	.string "This is TREECKO, the Tiny Lizard\n"
+	.string "POKéMON.\p"
+	.string "It uses the small hooks on the\n"
+	.string "bottom of its feet to scale walls.\p"
+	.string "Would you like TREECKO?$"
+
+PalletTown_ProfessorOaksLab_Text_OakThisIsTorchic::
+	.string "This is TORCHIC, the Chick POKéMON.\p"
+	.string "It launches fireballs of over\n"
+	.string "1,800 degrees F at its enemies.\p"
+	.string "Would you like TORCHIC?$"
+
+PalletTown_ProfessorOaksLab_Text_OakThisIsMudkip::
+	.string "And finally, this is MUDKIP,\n"
+	.string "the Mud Fish POKéMON.\p"
+	.string "It uses the fin on its head to\n"
+	.string "sense movements in the air and water.\p"
+	.string "Would you like MUDKIP?$"
+
+PalletTown_ProfessorOaksLab_Text_OakThinkItOver::
+	.string "No need to rush. Come back when\n"
+	.string "you've made up your mind!$"
+
+PalletTown_ProfessorOaksLab_Text_OakReceivedHoennStarter::
+	.string "Take good care of it!\p"
+	.string "I hope it brings you as much joy\n"
+	.string "in KANTO as it did in HOENN!$"
 

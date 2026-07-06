@@ -545,4 +545,50 @@ PalletTown_Text_PressStartToOpenMenuCopy::
 	.string "TRAINER TIPS!\p"
 	.string "Press START to open the MENU!$"
 
+PalletTown_Frlg_EventScript_RegionWarper::
+	lock
+	faceplayer
+	msgbox PalletTown_Frlg_Text_WarpToHoenn, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PalletTown_Frlg_EventScript_WarpToHoenn
+	msgbox PalletTown_Frlg_Text_WarpToJohto, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PalletTown_Frlg_EventScript_WarpDeclined
+PalletTown_Frlg_EventScript_WarpToJohto::
+	warp MAP_NEW_BARK_TOWN, 10, 15
+	waitstate
+	release
+	end
+
+PalletTown_Frlg_EventScript_WarpToHoenn::
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
+	setflag FLAG_RESCUED_BIRCH
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_RIVAL
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE
+	warp MAP_LITTLEROOT_TOWN, 10, 15
+	waitstate
+	release
+	end
+
+PalletTown_Frlg_EventScript_WarpDeclined::
+	msgbox PalletTown_Frlg_Text_OkayThen, MSGBOX_DEFAULT
+	release
+	end
+
+PalletTown_Frlg_Text_WarpToHoenn:
+	.string "Need to warp for testing?\p"
+	.string "Warp to HOENN (Littleroot Town)?$"
+
+PalletTown_Frlg_Text_WarpToJohto:
+	.string "Warp to JOHTO?$"
+
+PalletTown_Frlg_Text_JohtoNotReady:
+	.string "JOHTO maps aren't implemented\n"
+	.string "yet. Stay tuned!$"
+
+PalletTown_Frlg_Text_OkayThen:
+	.string "Okay, let me know if you change\n"
+	.string "your mind!$"
+
 

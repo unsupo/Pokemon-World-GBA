@@ -10,57 +10,56 @@
 
 static bool32 IsFieldMoveUnlocked_Cut(void)
 {
-    if (IS_FRLG)
-        return FlagGet(FLAG_BADGE02_GET);
-
-    return FlagGet(FLAG_BADGE01_GET);
+    return FlagGet(FLAG_BADGE01_GET)         // Hoenn: Stone Badge (Roxanne)
+        || FlagGet(FLAG_JOHTO_BADGE02_GET)   // Johto: Hive Badge (Bugsy)
+        || FlagGet(FLAG_KANTO_BADGE02_GET);  // Kanto: Cascade Badge (Misty)
 }
 
 static bool32 IsFieldMoveUnlocked_Flash(void)
 {
-    if (IS_FRLG)
-        return FlagGet(FLAG_BADGE01_GET);
-
-    return FlagGet(FLAG_BADGE02_GET);
+    return FlagGet(FLAG_BADGE02_GET)         // Hoenn: Knuckle Badge (Brawly)
+        || FlagGet(FLAG_JOHTO_BADGE01_GET)   // Johto: Zephyr Badge (Falkner)
+        || FlagGet(FLAG_KANTO_BADGE01_GET);  // Kanto: Boulder Badge (Brock)
 }
 
 static bool32 IsFieldMoveUnlocked_RockSmash(void)
 {
-    if (IS_FRLG)
-        return FlagGet(FLAG_BADGE06_GET);
-
-    return FlagGet(FLAG_BADGE03_GET);
+    return FlagGet(FLAG_BADGE03_GET)         // Hoenn: Dynamo Badge (Wattson)
+        || FlagGet(FLAG_JOHTO_BADGE03_GET)   // Johto: Plain Badge (Whitney)
+        || FlagGet(FLAG_KANTO_BADGE06_GET);  // Kanto: Marsh Badge (Sabrina)
 }
 
 static bool32 IsFieldMoveUnlocked_Strength(void)
 {
-    return FlagGet(FLAG_BADGE04_GET);
+    return FlagGet(FLAG_BADGE04_GET)         // Hoenn: Heat Badge (Flannery)
+        || FlagGet(FLAG_JOHTO_BADGE04_GET)   // Johto: Fog Badge (Morty)
+        || FlagGet(FLAG_KANTO_BADGE04_GET);  // Kanto: Rainbow Badge (Erika)
 }
 
 static bool32 IsFieldMoveUnlocked_Surf(void)
 {
-    return FlagGet(FLAG_BADGE05_GET);
+    return FlagGet(FLAG_BADGE05_GET)         // Hoenn: Balance Badge (Norman)
+        || FlagGet(FLAG_JOHTO_BADGE04_GET)   // Johto: Fog Badge (Morty)
+        || FlagGet(FLAG_KANTO_BADGE05_GET);  // Kanto: Soul Badge (Koga)
 }
 
 static bool32 IsFieldMoveUnlocked_Fly(void)
 {
-    if (IS_FRLG)
-        return FlagGet(FLAG_BADGE03_GET);
-
-    return FlagGet(FLAG_BADGE06_GET);
+    return FlagGet(FLAG_BADGE06_GET)         // Hoenn: Feather Badge (Winona)
+        || FlagGet(FLAG_JOHTO_BADGE05_GET)   // Johto: Storm Badge (Chuck)
+        || FlagGet(FLAG_KANTO_BADGE03_GET);  // Kanto: Thunder Badge (Lt. Surge)
 }
 
 static bool32 IsFieldMoveUnlocked_Dive(void)
 {
-    return FlagGet(FLAG_BADGE07_GET);
+    return FlagGet(FLAG_BADGE07_GET);        // Hoenn only: Mind Badge (Tate & Liza)
 }
 
 static bool32 IsFieldMoveUnlocked_Waterfall(void)
 {
-    if (IS_FRLG)
-        return FlagGet(FLAG_BADGE07_GET);
-
-    return FlagGet(FLAG_BADGE08_GET);
+    return FlagGet(FLAG_BADGE08_GET)         // Hoenn: Rain Badge (Wallace)
+        || FlagGet(FLAG_JOHTO_BADGE08_GET)   // Johto: Rising Badge (Clair)
+        || FlagGet(FLAG_KANTO_BADGE07_GET);  // Kanto: Volcano Badge (Blaine)
 }
 
 static bool32 IsFieldMoveUnlocked_RockClimb(void)

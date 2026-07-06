@@ -291,7 +291,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Cyndaquil::
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter
 	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	showmonpic SPECIES_CYNDAQUIL, 10, 3
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_YoullTakeCyndaquil, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_TakeYourTime
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_GiveCyndaquil
@@ -302,7 +301,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Totodile::
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter
 	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	showmonpic SPECIES_TOTODILE, 10, 3
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_YoullTakeTotodile, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_TakeYourTime
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_GiveTotodile
@@ -313,7 +311,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Chikorita::
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter
 	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	showmonpic SPECIES_CHIKORITA, 10, 3
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_YoullTakeChikorita, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, LittlerootTown_ProfessorBirchsLab_EventScript_TakeYourTime
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_GiveChikorita
@@ -325,7 +322,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_AlreadyChoseJohtoStarter::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_TakeYourTime::
-	hidemonpic
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_TakeYourTimeAllInvaluable, MSGBOX_DEFAULT
 	releaseall
 	end
@@ -336,7 +332,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GiveCyndaquil::
 	givemon SPECIES_CYNDAQUIL, 5
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_SendCyndaquilToParty
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, LittlerootTown_ProfessorBirchsLab_EventScript_SendCyndaquilToPC
-	hidemonpic
 	goto Common_EventScript_NoMoreRoomForPokemon
 	end
 
@@ -365,7 +360,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_CyndaquilTransferredToPC::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedCyndaquil::
-	hidemonpic
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting, MSGBOX_DEFAULT
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6
 	releaseall
@@ -377,7 +371,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GiveTotodile::
 	givemon SPECIES_TOTODILE, 5
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_SendTotodileToParty
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, LittlerootTown_ProfessorBirchsLab_EventScript_SendTotodileToPC
-	hidemonpic
 	goto Common_EventScript_NoMoreRoomForPokemon
 	end
 
@@ -406,7 +399,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_TotodileTransferredToPC::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedTotodile::
-	hidemonpic
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting, MSGBOX_DEFAULT
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6
 	releaseall
@@ -418,7 +410,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GiveChikorita::
 	givemon SPECIES_CHIKORITA, 5
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, LittlerootTown_ProfessorBirchsLab_EventScript_SendChikoritaToParty
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, LittlerootTown_ProfessorBirchsLab_EventScript_SendChikoritaToPC
-	hidemonpic
 	goto Common_EventScript_NoMoreRoomForPokemon
 	end
 
@@ -447,7 +438,6 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ChikoritaTransferredToPC::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedChikorita::
-	hidemonpic
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting, MSGBOX_DEFAULT
 	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6
 	releaseall
@@ -465,10 +455,15 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Birch::
 	faceplayer
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GrassyPatchWaiting
+	call_if_set FLAG_TRAVELED_TO_KANTO, LittlerootTown_ProfessorBirchsLab_EventScript_CheckKantoStarterOffer
 	goto_if_unset FLAG_HAS_MATCH_CALL, LittlerootTown_ProfessorBirchsLab_EventScript_TryRatePokedexOrRegister
 	goto_if_unset FLAG_ENABLE_PROF_BIRCH_MATCH_CALL, EventScript_RegisterProfBirch
 	goto LittlerootTown_ProfessorBirchsLab_EventScript_TryRatePokedexOrRegister
 	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_CheckKantoStarterOffer::
+	goto_if_unset FLAG_RECEIVED_KANTO_STARTER, LittlerootTown_ProfessorBirchsLab_EventScript_OfferKantoStarter
+	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_CanHaveAnyOneOfRarePokemon, MSGBOX_DEFAULT
@@ -992,3 +987,82 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+
+@ Kanto starter offer (for players who traveled to Kanto)
+LittlerootTown_ProfessorBirchsLab_EventScript_OfferKantoStarter::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchHeardAboutKanto, MSGBOX_DEFAULT
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchChooseKantoStarter, MSGBOX_DEFAULT
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchThisIsBulbasaur, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_GiveBulbasaur
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchThisIsCharmander, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_GiveCharmander
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchThisIsSquirtle, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_ProfessorBirchsLab_EventScript_GiveSquirtle
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchThinkItOver, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GiveBulbasaur::
+	givemon SPECIES_BULBASAUR, 5, ITEM_NONE
+	setflag FLAG_RECEIVED_KANTO_STARTER
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchReceivedKantoStarter, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GiveCharmander::
+	givemon SPECIES_CHARMANDER, 5, ITEM_NONE
+	setflag FLAG_RECEIVED_KANTO_STARTER
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchReceivedKantoStarter, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GiveSquirtle::
+	givemon SPECIES_SQUIRTLE, 5, ITEM_NONE
+	setflag FLAG_RECEIVED_KANTO_STARTER
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchReceivedKantoStarter, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchHeardAboutKanto::
+	.string "You made it all the way to KANTO!\n"
+	.string "Remarkable, {PLAYER}!\p"
+	.string "I've been in touch with an old friend\n"
+	.string "of mine, PROF. OAK.\p"
+	.string "He tells me you've been having\n"
+	.string "quite the adventure over there!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchChooseKantoStarter::
+	.string "PROF. OAK sent over one of KANTO's\n"
+	.string "famous starter POKéMON as a gift\l"
+	.string "for you!\p"
+	.string "Go on, pick the one you like.\n"
+	.string "Which one will it be?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchThisIsBulbasaur::
+	.string "This is BULBASAUR, the Seed POKéMON.\p"
+	.string "A strange seed was planted on its\n"
+	.string "back at birth.\p"
+	.string "Would you like BULBASAUR?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchThisIsCharmander::
+	.string "This is CHARMANDER, the Lizard\n"
+	.string "POKéMON.\p"
+	.string "The flame on its tail shows its\n"
+	.string "emotions - bright when happy!\p"
+	.string "Would you like CHARMANDER?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchThisIsSquirtle::
+	.string "And this is SQUIRTLE, the Tiny\n"
+	.string "Turtle POKéMON.\p"
+	.string "Its shell is not just for protection\n"
+	.string "- it also improves aerodynamics!\p"
+	.string "Would you like SQUIRTLE?$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchThinkItOver::
+	.string "Take your time deciding!\n"
+	.string "Come back whenever you're ready.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchReceivedKantoStarter::
+	.string "Congratulations!\p"
+	.string "Take good care of it on your\n"
+	.string "journey through both regions!$"

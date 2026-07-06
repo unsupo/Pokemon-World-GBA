@@ -6,7 +6,7 @@ SlateportCity_Harbor_OnTransition:
 	setescapewarp MAP_SLATEPORT_CITY, 28, 13
 	setvar VAR_TEMP_1, 0
 	call_if_eq VAR_SLATEPORT_HARBOR_STATE, 1, SlateportCity_Harbor_EventScript_ReadyAquaEscapeScene
-	call_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_ShowSSTidal
+	call SlateportCity_Harbor_EventScript_ShowSSTidal
 	end
 
 SlateportCity_Harbor_EventScript_ShowSSTidal::
@@ -157,9 +157,7 @@ SlateportCity_Harbor_Movement_PlayerWalkUp:
 SlateportCity_Harbor_EventScript_FerryAttendant::
 	lock
 	faceplayer
-	goto_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_AskForTicket
-	msgbox SlateportCity_Harbor_Text_FerryServiceUnavailable, MSGBOX_DEFAULT
-	release
+	goto SlateportCity_Harbor_EventScript_AskForTicket
 	end
 
 SlateportCity_Harbor_EventScript_AskForTicket::
@@ -171,19 +169,25 @@ SlateportCity_Harbor_EventScript_AskForTicket::
 
 SlateportCity_Harbor_EventScript_ChooseDestination::
 	goto_if_set FLAG_MET_SCOTT_ON_SS_TIDAL, SlateportCity_Harbor_EventScript_ChooseDestinationWithBattleFrontier
-	multichoicedefault 18, 8, MULTI_SSTIDAL_SLATEPORT_NO_BF, 2, FALSE
+	multichoicedefault 18, 7, MULTI_SSTIDAL_SLATEPORT_NO_BF_KANTO_JOHTO, 3, FALSE
 	switch VAR_RESULT
 	case 0, SlateportCity_Harbor_EventScript_Lilycove
-	case 1, SlateportCity_Harbor_EventScript_CancelDestinationSelect
+	case 1, SlateportCity_Harbor_EventScript_KantoRegion
+	case 2, SlateportCity_Harbor_EventScript_JohtoRegion
+	case 3, SlateportCity_Harbor_EventScript_SinnohRegion
+	case 4, SlateportCity_Harbor_EventScript_CancelDestinationSelect
 	case MULTI_B_PRESSED, SlateportCity_Harbor_EventScript_CancelDestinationSelect
 	end
 
 SlateportCity_Harbor_EventScript_ChooseDestinationWithBattleFrontier::
-	multichoicedefault 17, 6, MULTI_SSTIDAL_SLATEPORT_WITH_BF, 2, FALSE
+	multichoicedefault 17, 5, MULTI_SSTIDAL_SLATEPORT_WITH_BF_KANTO_JOHTO, 4, FALSE
 	switch VAR_RESULT
 	case 0, SlateportCity_Harbor_EventScript_Lilycove
 	case 1, SlateportCity_Harbor_EventScript_BattleFrontier
-	case 2, SlateportCity_Harbor_EventScript_CancelDestinationSelect
+	case 2, SlateportCity_Harbor_EventScript_KantoRegion
+	case 3, SlateportCity_Harbor_EventScript_JohtoRegion
+	case 4, SlateportCity_Harbor_EventScript_SinnohRegion
+	case 5, SlateportCity_Harbor_EventScript_CancelDestinationSelect
 	case MULTI_B_PRESSED, SlateportCity_Harbor_EventScript_CancelDestinationSelect
 	end
 
@@ -208,6 +212,38 @@ SlateportCity_Harbor_EventScript_BattleFrontier::
 	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_ChooseNewDestination
 	call SlateportCity_Harbor_EventScript_BoardFerry
 	warp MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67
+	waitstate
+	release
+	end
+
+SlateportCity_Harbor_EventScript_KantoRegion::
+	msgbox SlateportCity_Harbor_Text_KantoItIs, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_ChooseNewDestination
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_KANTO
+	call SlateportCity_Harbor_EventScript_BoardFerry
+	warp MAP_SS_TIDAL_CORRIDOR, 1, 10
+	waitstate
+	release
+	end
+
+SlateportCity_Harbor_EventScript_JohtoRegion::
+	msgbox SlateportCity_Harbor_Text_JohtoItIs, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_ChooseNewDestination
+	setflag FLAG_TRAVELED_TO_JOHTO
+	setrespawn HEAL_LOCATION_OLIVINE_CITY
+	call SlateportCity_Harbor_EventScript_BoardFerry
+	warp MAP_OLIVINE_CITY_PORT_INSIDE, 8, 14
+	waitstate
+	release
+	end
+
+SlateportCity_Harbor_EventScript_SinnohRegion::
+	msgbox SlateportCity_Harbor_Text_SinnohItIs, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_ChooseNewDestination
+	setflag FLAG_TRAVELED_TO_KANTO @ We reuse traveled flags or simply set respawn
+	setrespawn HEAL_LOCATION_NONE
+	call SlateportCity_Harbor_EventScript_BoardFerry
+	warp MAP_SANDGEM_TOWN, 10, 10
 	waitstate
 	release
 	end
@@ -409,6 +445,21 @@ SlateportCity_Harbor_Text_LilycoveItIs:
 
 SlateportCity_Harbor_Text_BattleFrontierItIs:
 	.string "BATTLE FRONTIER it is, then!$"
+
+SlateportCity_Harbor_Text_KantoItIs:
+	.string "KANTO REGION it is, then!\p"
+	.string "The S.S. TIDAL will carry you\n"
+	.string "across the ocean to VERMILION CITY.$"
+
+SlateportCity_Harbor_Text_JohtoItIs:
+	.string "JOHTO REGION it is, then!\p"
+	.string "The S.S. TIDAL will carry you\n"
+	.string "across the sea to OLIVINE CITY.$"
+
+SlateportCity_Harbor_Text_SinnohItIs:
+	.string "SINNOH REGION it is, then!\p"
+	.string "The S.S. TIDAL will carry you\n"
+	.string "across the sea to SANDGEM TOWN.$"
 
 SlateportCity_Harbor_Text_PleaseBoardFerry:
 	.string "Please board the ferry and wait for\n"

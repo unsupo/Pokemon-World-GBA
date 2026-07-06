@@ -1,8 +1,6 @@
 #ifndef GUARD_CONSTANTS_VARS_H
 #define GUARD_CONSTANTS_VARS_H
 
-#include "constants/vars_frlg.h"
-
 #define VARS_START 0x4000
 
 // temporary vars
@@ -97,7 +95,10 @@
 #define VAR_POKELOT_RND1                                 0x404B
 #define VAR_POKELOT_RND2                                 0x404C
 #define VAR_POKELOT_PRIZE_PLACE                          0x404D
-#define VAR_UNUSED_0x404E                                0x404E // Unused Var
+#define VAR_AVATAR_STYLE                                 0x404E // Used to store the player's avatar style (0 = Hoenn, 1 = Kanto, 2 = Johto)
+#define AVATAR_STYLE_HOENN                               0
+#define AVATAR_STYLE_KANTO                               1
+#define AVATAR_STYLE_JOHTO                               2
 #define VAR_LOTAD_SIZE_RECORD                            0x404F
 #define VAR_LITTLEROOT_TOWN_STATE                        0x4050
 #define VAR_OLDALE_TOWN_STATE                            0x4051
@@ -276,7 +277,7 @@
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 
-#define VARS_END                                         0x40FF
+#define VARS_END                                         0x413F
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
 
 #define SPECIAL_VARS_START            0x8000
@@ -337,5 +338,8 @@
 #define TESTING_VAR_UNUSED_6                (TESTING_VARS_START + 0x6)
 #define TESTING_VAR_UNUSED_7                (TESTING_VARS_START + 0x7)
 #endif // TESTING
+
+#include "constants/vars_frlg.h"
+#include "constants/vars_johto.h"
 
 #endif // GUARD_CONSTANTS_VARS_H

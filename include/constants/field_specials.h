@@ -32,6 +32,10 @@ enum SSTidalState
     SS_TIDAL_LAND_SLATEPORT,
     SS_TIDAL_EXIT_CURRENTS_RIGHT,
     SS_TIDAL_EXIT_CURRENTS_LEFT,
+    SS_TIDAL_BOARD_KANTO,   // boarding at Slateport bound for Vermilion City
+    SS_TIDAL_LAND_KANTO,    // arrived in Vermilion City
+    SS_TIDAL_BOARD_HOENN,   // boarding at Vermilion bound for Slateport
+    SS_TIDAL_LAND_HOENN,    // arrived in Slateport from Kanto
 };
 
 #define SS_TIDAL_MAX_STEPS 205

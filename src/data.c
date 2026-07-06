@@ -233,6 +233,72 @@ const struct Trainer gTrainers[DIFFICULTY_COUNT][TRAINERS_COUNT] =
 #include "data/trainers_frlg.h"
 #else
 #include "data/trainers.h"
+    // FRLG trainers for Kanto new game (IDs remapped to 900+ range via opponents.h)
+#include "data/trainers_frlg.h"
+    // Explicit FRLG rival trainers (indices remapped from FRLG 226-228 to 855-857)
+    [DIFFICULTY_NORMAL][TRAINER_RIVAL_OAKS_LAB_SQUIRTLE] = {
+        .trainerName = _("TERRY"),
+        .trainerClass = TRAINER_CLASS_RIVAL_EARLY_FRLG,
+        .trainerPic = TRAINER_PIC_RIVAL_EARLY_FRLG,
+        .gender = TRAINER_GENDER_MALE,
+        .encounterMusic = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .battleType = TRAINER_BATTLE_TYPE_SINGLES,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
+        .multiTeamSize = MULTI_TEAM_SIZE_FULL,
+        .partySize = 1,
+        .party = (const struct TrainerMon[]) {{
+            .species = SPECIES_SQUIRTLE,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+            .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
+            .lvl = 5,
+            .ball = POKEBALL_COUNT,
+            .nature = NATURE_HARDY,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {MOVE_TACKLE, MOVE_TAIL_WHIP},
+        }},
+    },
+    [DIFFICULTY_NORMAL][TRAINER_RIVAL_OAKS_LAB_BULBASAUR] = {
+        .trainerName = _("TERRY"),
+        .trainerClass = TRAINER_CLASS_RIVAL_EARLY_FRLG,
+        .trainerPic = TRAINER_PIC_RIVAL_EARLY_FRLG,
+        .gender = TRAINER_GENDER_MALE,
+        .encounterMusic = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .battleType = TRAINER_BATTLE_TYPE_SINGLES,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
+        .multiTeamSize = MULTI_TEAM_SIZE_FULL,
+        .partySize = 1,
+        .party = (const struct TrainerMon[]) {{
+            .species = SPECIES_BULBASAUR,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+            .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
+            .lvl = 5,
+            .ball = POKEBALL_COUNT,
+            .nature = NATURE_HARDY,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {MOVE_TACKLE, MOVE_GROWL},
+        }},
+    },
+    [DIFFICULTY_NORMAL][TRAINER_RIVAL_OAKS_LAB_CHARMANDER] = {
+        .trainerName = _("TERRY"),
+        .trainerClass = TRAINER_CLASS_RIVAL_EARLY_FRLG,
+        .trainerPic = TRAINER_PIC_RIVAL_EARLY_FRLG,
+        .gender = TRAINER_GENDER_MALE,
+        .encounterMusic = TRAINER_ENCOUNTER_MUSIC_MALE,
+        .battleType = TRAINER_BATTLE_TYPE_SINGLES,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
+        .multiTeamSize = MULTI_TEAM_SIZE_FULL,
+        .partySize = 1,
+        .party = (const struct TrainerMon[]) {{
+            .species = SPECIES_CHARMANDER,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+            .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
+            .lvl = 5,
+            .ball = POKEBALL_COUNT,
+            .nature = NATURE_HARDY,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            .moves = {MOVE_SCRATCH, MOVE_GROWL},
+        }},
+    },
 #endif
 };
 #endif

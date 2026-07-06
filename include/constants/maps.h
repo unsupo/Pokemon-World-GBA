@@ -27,4 +27,77 @@ enum
 // use the given coordinates rather than the coordinates of a target warp.
 #define WARP_ID_NONE (-1)
 
+// Johto maps not yet imported — stub to MAP_DYNAMIC until map data is added
+#ifndef MAP_TIN_TOWER_1F
+#define MAP_TIN_TOWER_1F                    MAP_DYNAMIC
+#endif
+#ifndef MAP_TIN_TOWER_ROOF_DAY
+#define MAP_TIN_TOWER_ROOF_DAY              MAP_DYNAMIC
+#endif
+#ifndef MAP_TOHJO_FALLS_CAVERN
+#define MAP_TOHJO_FALLS_CAVERN              MAP_DYNAMIC
+#endif
+#ifndef MAP_RECEPTION_GATE
+#define MAP_RECEPTION_GATE                  MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_AZALEA_TOWN_ILEX_FOREST
+#define MAP_GATE_AZALEA_TOWN_ILEX_FOREST    MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_ECRUTEAK_CITY_ROUTE38
+#define MAP_GATE_ECRUTEAK_CITY_ROUTE38      MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_ECRUTEAK_CITY_ROUTE42
+#define MAP_GATE_ECRUTEAK_CITY_ROUTE42      MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_ILEX_FOREST_ROUTE34
+#define MAP_GATE_ILEX_FOREST_ROUTE34        MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_MAHOGANY_TOWN_ROUTE43
+#define MAP_GATE_MAHOGANY_TOWN_ROUTE43      MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_NATIONAL_PARK
+#define MAP_GATE_NATIONAL_PARK              MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_ROUTE29_ROUTE46
+#define MAP_GATE_ROUTE29_ROUTE46            MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_RUINS_OF_ALPH_ROUTE32
+#define MAP_GATE_RUINS_OF_ALPH_ROUTE32      MAP_DYNAMIC
+#endif
+#ifndef MAP_GATE_RUINS_OF_ALPH_ROUTE36
+#define MAP_GATE_RUINS_OF_ALPH_ROUTE36      MAP_DYNAMIC
+#endif
+#ifndef MAP_ROUTE41
+#define MAP_ROUTE41                         MAP_DYNAMIC
+#endif
+#ifndef MAP_ROUTE42
+#define MAP_ROUTE42                         MAP_DYNAMIC
+#endif
+#ifndef MAP_ROUTE44
+#define MAP_ROUTE44                         MAP_DYNAMIC
+#endif
+#ifndef MAP_ROUTE45
+#define MAP_ROUTE45                         MAP_DYNAMIC
+#endif
+#ifndef MAP_ROUTE46
+#define MAP_ROUTE46                         MAP_DYNAMIC
+#endif
+#ifndef MAP_ROUTE47
+#define MAP_ROUTE47                         MAP_DYNAMIC
+#endif
+// HnS-specific hub map (region selector); we handle region transit differently
+#ifndef MAP_WORLD_HUB
+#define MAP_WORLD_HUB                       MAP_DYNAMIC
+#endif
+// Johto maps not yet imported — train stations, ferry ports, and SS Aqua
+#ifndef MAP_SAFFRON_CITY_TRAIN_STATION
+#define MAP_SAFFRON_CITY_TRAIN_STATION      MAP_DYNAMIC
+#endif
+#ifndef MAP_VERMILION_CITY_PORT_INSIDE
+#define MAP_VERMILION_CITY_PORT_INSIDE      MAP_DYNAMIC
+#endif
+#ifndef MAP_SSAQUA_1F
+#define MAP_SSAQUA_1F                       MAP_DYNAMIC
+#endif
+
 #endif  // GUARD_CONSTANTS_MAPS_H

@@ -40,6 +40,7 @@
 #include "title_screen.h"
 #include "window.h"
 #include "mystery_gift_menu.h"
+#include "new_game.h"
 
 /*
  * Main menu state machine
@@ -229,9 +230,22 @@ static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void);
 static void Task_NewGameBirchSpeech_CreateNameYesNo(u8);
 static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8);
 void CreateYesNoMenuParameterized(u8, u8, u16, u16, u8, u8);
+void CreateHoennKantoMenuParameterized(u8, u8, u16, u16, u8, u8);
+void CreateRegionMenuParameterized(u8, u8, u16, u16, u8, u8);
 static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8);
 static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8);
 static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8);
+static void Task_NewGameBirchSpeech_AskAvatarStyle(u8);
+static void Task_NewGameBirchSpeech_ProcessAvatarStyleMenu(u8);
+static void Task_NewGameBirchSpeech_ProcessAvatarStyleMenuInput(u8);
+static void Task_NewGameBirchSpeech_AskRegion(u8);
+static void Task_NewGameBirchSpeech_ProcessRegionMenu(u8);
+static void Task_NewGameBirchSpeech_ProcessRegionMenuInput(u8);
+static void Task_NewGameBirchSpeech_AskKantoVersion(u8);
+static void Task_NewGameBirchSpeech_ProcessKantoVersionMenu(u8);
+static void Task_NewGameBirchSpeech_ProcessKantoVersionInput(u8);
+static void Task_NewGameBirchSpeech_AskHardMode(u8);
+static void Task_NewGameBirchSpeech_ProcessHardModeInput(u8);
 static void Task_NewGameBirchSpeech_AreYouReady(u8);
 static void Task_NewGameBirchSpeech_ShrinkPlayer(u8);
 static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *);
@@ -1293,6 +1307,9 @@ static void HighlightSelectedMainMenuItem(enum PartyMenuType menuType, u8 select
 #define tLotadSpriteId data[9]
 #define tBrendanSpriteId data[10]
 #define tMaySpriteId data[11]
+#define tRedSpriteId data[12]
+#define tLeafSpriteId data[13]
+#define tAvatarStyleCursorPos data[14]
 
 static void Task_NewGameBirchSpeech_Init(u8 taskId)
 {
@@ -1663,16 +1680,106 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
     {
     case 0:
         PlaySE(SE_SELECT);
-        gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
-        NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
-        NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_SlidePlatformAway2;
+        gTasks[taskId].func = Task_NewGameBirchSpeech_AskAvatarStyle;
         break;
     case MENU_B_PRESSED:
     case 1:
         PlaySE(SE_SELECT);
         gTasks[taskId].func = Task_NewGameBirchSpeech_BoyOrGirl;
     }
+}
+
+static void Task_NewGameBirchSpeech_AskAvatarStyle(u8 taskId)
+{
+    NewGameBirchSpeech_ClearWindow(0);
+    StringExpandPlaceholders(gStringVar4, gText_Birch_WhichAvatarStyle);
+    AddTextPrinterForMessage(TRUE);
+    gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessAvatarStyleMenu;
+}
+
+static void Task_NewGameBirchSpeech_ProcessAvatarStyleMenu(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        CreateHoennKantoMenuParameterized(2, 8, 0xF3, 0xDF, 2, 15);
+        gTasks[taskId].tAvatarStyleCursorPos = 0xFF; // force initial update
+        gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessAvatarStyleMenuInput;
+    }
+}
+
+static void Task_NewGameBirchSpeech_ProcessAvatarStyleMenuInput(u8 taskId)
+{
+    s8 input = Menu_ProcessInputNoWrapClearOnChoose();
+    u8 cursorPos = Menu_GetCursorPos();
+
+    if (gTasks[taskId].tAvatarStyleCursorPos != cursorPos && input == MENU_NOTHING_CHOSEN)
+    {
+        gTasks[taskId].tAvatarStyleCursorPos = cursorPos;
+        
+        gSprites[gTasks[taskId].tBrendanSpriteId].invisible = TRUE;
+        gSprites[gTasks[taskId].tMaySpriteId].invisible = TRUE;
+        gSprites[gTasks[taskId].tRedSpriteId].invisible = TRUE;
+        gSprites[gTasks[taskId].tLeafSpriteId].invisible = TRUE;
+        
+        if (cursorPos == 0) // HOENN
+        {
+            if (gTasks[taskId].tPlayerGender == MALE)
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tBrendanSpriteId;
+            else
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tMaySpriteId;
+        }
+        else if (cursorPos == 2) // JOHTO
+        {
+            if (gTasks[taskId].tPlayerGender == MALE)
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tRedSpriteId;
+            else
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tLeafSpriteId;
+        }
+        else if (cursorPos == 3) // SINNOH
+        {
+            if (gTasks[taskId].tPlayerGender == MALE)
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tRedSpriteId;
+            else
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tLeafSpriteId;
+        }
+        else // KANTO
+        {
+            if (gTasks[taskId].tPlayerGender == MALE)
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tRedSpriteId;
+            else
+                gTasks[taskId].tPlayerSpriteId = gTasks[taskId].tLeafSpriteId;
+        }
+            
+        gSprites[gTasks[taskId].tPlayerSpriteId].invisible = FALSE;
+     }
+
+     switch (input)
+     {
+     case 0: // HOENN
+         PlaySE(SE_SELECT);
+         gNewGameAvatarStyle = AVATAR_STYLE_HOENN;
+         break;
+     case 2: // JOHTO
+         PlaySE(SE_SELECT);
+         gNewGameAvatarStyle = AVATAR_STYLE_JOHTO;
+         break;
+     case 3: // SINNOH
+         PlaySE(SE_SELECT);
+         gNewGameAvatarStyle = AVATAR_STYLE_JOHTO; // use Johto style stats or placeholder
+         break;
+     case MENU_B_PRESSED:
+     case 1: // KANTO
+         PlaySE(SE_SELECT);
+         gNewGameAvatarStyle = AVATAR_STYLE_KANTO;
+         break;
+     default:
+         return;
+     }
+    
+    gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
+    NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
+    NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
+    gTasks[taskId].func = Task_NewGameBirchSpeech_SlidePlatformAway2;
 }
 
 static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8 taskId)
@@ -1696,6 +1803,8 @@ static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8 taskId)
     {
         gSprites[gTasks[taskId].tBrendanSpriteId].invisible = TRUE;
         gSprites[gTasks[taskId].tMaySpriteId].invisible = TRUE;
+        gSprites[gTasks[taskId].tRedSpriteId].invisible = TRUE;
+        gSprites[gTasks[taskId].tLeafSpriteId].invisible = TRUE;
         spriteId = gTasks[taskId].tBirchSpriteId;
         gSprites[spriteId].x = 136;
         gSprites[spriteId].y = 60;
@@ -1725,12 +1834,155 @@ static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8 taskId)
         {
             gSprites[gTasks[taskId].tBirchSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
             gSprites[gTasks[taskId].tLotadSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
-            NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
-            NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
-            gTasks[taskId].tTimer = 64;
-            gTasks[taskId].func = Task_NewGameBirchSpeech_AreYouReady;
+            gTasks[taskId].func = Task_NewGameBirchSpeech_AskRegion;
         }
     }
+}
+
+static void Task_NewGameBirchSpeech_AskRegion(u8 taskId)
+{
+    NewGameBirchSpeech_ClearWindow(0);
+    StringExpandPlaceholders(gStringVar4, gText_Birch_WhichRegion);
+    AddTextPrinterForMessage(TRUE);
+    gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessRegionMenu;
+}
+
+static void Task_NewGameBirchSpeech_ProcessRegionMenu(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        CreateRegionMenuParameterized(2, 4, 0xF3, 0xDF, 2, 15);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessRegionMenuInput;
+    }
+}
+
+static void Task_NewGameBirchSpeech_ProcessRegionMenuInput(u8 taskId)
+{
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case MENU_B_PRESSED: // default to HOENN on cancel, same as hard mode defaulting to NO
+    case 0: // HOENN
+        PlaySE(SE_SELECT);
+        gNewGameRegion = STARTING_REGION_HOENN;
+        break;
+    case 1: // KANTO
+        PlaySE(SE_SELECT);
+        gNewGameRegion = STARTING_REGION_KANTO;
+        // Prompt for Kanto vs Yellow mode selection
+        gTasks[taskId].func = Task_NewGameBirchSpeech_AskKantoVersion;
+        return;
+    case 2: // JOHTO
+        PlaySE(SE_SELECT);
+        gNewGameRegion = STARTING_REGION_JOHTO;
+        break;
+    case 3: // SINNOH
+        PlaySE(SE_SELECT);
+        gNewGameRegion = STARTING_REGION_SINNOH;
+        break;
+    default:
+        return;
+    }
+    StringExpandPlaceholders(gStringVar4, gText_Birch_HardMode);
+    AddTextPrinterForMessage(TRUE);
+    gTasks[taskId].func = Task_NewGameBirchSpeech_AskHardMode;
+}
+
+static const u8 gText_KantoNormalOrYellow[] = _("RED/LEAF\nYELLOW");
+
+void CreateKantoVersionMenu(const struct WindowTemplate *window, u16 baseTileNum, u8 paletteNum, u8 initialCursorPos)
+{
+    struct TextPrinterTemplate printer;
+    u8 windowId = AddWindow(window);
+    DrawStdFrameWithCustomTileAndPalette(windowId, TRUE, baseTileNum, paletteNum);
+
+    printer.currentChar = gText_KantoNormalOrYellow;
+    printer.type = WINDOW_TEXT_PRINTER;
+    printer.windowId = windowId;
+    printer.fontId = FONT_NORMAL;
+    printer.x = 8;
+    printer.y = 1;
+    printer.currentX = printer.x;
+    printer.currentY = printer.y;
+    printer.color.foreground = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_FOREGROUND);
+    printer.color.background = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_BACKGROUND);
+    printer.color.shadow = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_SHADOW);
+    printer.color.accent = GetFontAttribute(FONT_NORMAL, FONTATTR_COLOR_ACCENT);
+    printer.letterSpacing = 0;
+    printer.lineSpacing = 0;
+
+    AddTextPrinter(&printer, TEXT_SKIP_DRAW, NULL);
+    InitMenuInUpperLeftCornerNormal(windowId, 2, initialCursorPos);
+}
+
+static void Task_NewGameBirchSpeech_AskKantoVersion(u8 taskId)
+{
+    NewGameBirchSpeech_ClearWindow(0);
+    // Custom question prompt for Kanto style selection
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Which Kanto style would you\nlike to play?"));
+    AddTextPrinterForMessage(TRUE);
+    gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessKantoVersionMenu;
+}
+
+static void Task_NewGameBirchSpeech_ProcessKantoVersionMenu(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        struct WindowTemplate template = CreateWindowTemplate(0, 2 + 1, 8 + 1, 6, 4, 15, 0xDF);
+        CreateKantoVersionMenu(&template, 0xF3, 2, 0);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessKantoVersionInput;
+    }
+}
+
+static void Task_NewGameBirchSpeech_ProcessKantoVersionInput(u8 taskId)
+{
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0: // RED/LEAF
+        PlaySE(SE_SELECT);
+        gNewGameRegion = STARTING_REGION_KANTO;
+        break;
+    case MENU_B_PRESSED:
+    case 1: // YELLOW
+        PlaySE(SE_SELECT);
+        gNewGameRegion = STARTING_REGION_YELLOW;
+        break;
+    default:
+        return;
+    }
+    StringExpandPlaceholders(gStringVar4, gText_Birch_HardMode);
+    AddTextPrinterForMessage(TRUE);
+    gTasks[taskId].func = Task_NewGameBirchSpeech_AskHardMode;
+}
+
+static void Task_NewGameBirchSpeech_AskHardMode(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+    {
+        CreateYesNoMenuParameterized(2, 8, 0xF3, 0xDF, 2, 15);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_ProcessHardModeInput;
+    }
+}
+
+static void Task_NewGameBirchSpeech_ProcessHardModeInput(u8 taskId)
+{
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0: // YES
+        PlaySE(SE_SELECT);
+        gNewGameHardMode = 1;
+        break;
+    case 1:          // NO
+    case MENU_B_PRESSED:
+        PlaySE(SE_SELECT);
+        gNewGameHardMode = 0;
+        break;
+    default:
+        return;
+    }
+    NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
+    NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
+    gTasks[taskId].tTimer = 64;
+    gTasks[taskId].func = Task_NewGameBirchSpeech_AreYouReady;
 }
 
 static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
@@ -1746,10 +1998,22 @@ static void Task_NewGameBirchSpeech_AreYouReady(u8 taskId)
             gTasks[taskId].tTimer--;
             return;
         }
-        if (gSaveBlock2Ptr->playerGender != MALE)
-            spriteId = gTasks[taskId].tMaySpriteId;
+        if (gNewGameAvatarStyle == AVATAR_STYLE_KANTO)
+        {
+            if (gSaveBlock2Ptr->playerGender != MALE)
+                spriteId = gTasks[taskId].tLeafSpriteId;
+            else
+                spriteId = gTasks[taskId].tRedSpriteId;
+        }
         else
-            spriteId = gTasks[taskId].tBrendanSpriteId;
+        {
+            // Johto uses Brendan/May as a stand-in for the intro preview;
+            // the overworld sprite will be Gold/Kris via VAR_AVATAR_STYLE.
+            if (gSaveBlock2Ptr->playerGender != MALE)
+                spriteId = gTasks[taskId].tMaySpriteId;
+            else
+                spriteId = gTasks[taskId].tBrendanSpriteId;
+        }
         gSprites[spriteId].x = 120;
         gSprites[spriteId].y = 60;
         gSprites[spriteId].invisible = FALSE;
@@ -1811,6 +2075,7 @@ static void Task_NewGameBirchSpeech_Cleanup(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        DebugPrintf("BirchSpeech_Cleanup: region=%d avatarStyle=%d hardMode=%d", gNewGameRegion, gNewGameAvatarStyle, gNewGameHardMode);
         FreeAllWindowBuffers();
         FreeAndDestroyMonPicSprite(gTasks[taskId].tLotadSpriteId);
         ResetAllPicSprites();
@@ -1940,6 +2205,17 @@ static void AddBirchSpeechObjects(u8 taskId)
     gSprites[maySpriteId].invisible = TRUE;
     gSprites[maySpriteId].oam.priority = 0;
     gTasks[taskId].tMaySpriteId = maySpriteId;
+
+    u8 redSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_RED), 120, 60, 0, NULL);
+    gSprites[redSpriteId].callback = SpriteCB_Null;
+    gSprites[redSpriteId].invisible = TRUE;
+    gSprites[redSpriteId].oam.priority = 0;
+    gTasks[taskId].tRedSpriteId = redSpriteId;
+    u8 leafSpriteId = CreateTrainerSprite(FacilityClassToPicIndex(FACILITY_CLASS_LEAF), 120, 60, 0, NULL);
+    gSprites[leafSpriteId].callback = SpriteCB_Null;
+    gSprites[leafSpriteId].invisible = TRUE;
+    gSprites[leafSpriteId].oam.priority = 0;
+    gTasks[taskId].tLeafSpriteId = leafSpriteId;
 }
 
 #undef tPlayerSpriteId
@@ -1949,6 +2225,9 @@ static void AddBirchSpeechObjects(u8 taskId)
 #undef tLotadSpriteId
 #undef tBrendanSpriteId
 #undef tMaySpriteId
+#undef tRedSpriteId
+#undef tLeafSpriteId
+#undef tAvatarStyleCursorPos
 
 #define tMainTask data[0]
 #define tAlphaCoeff1 data[1]
@@ -2299,6 +2578,18 @@ void CreateYesNoMenuParameterized(u8 x, u8 y, u16 baseTileNum, u16 baseBlock, u8
 {
     struct WindowTemplate template = CreateWindowTemplate(0, x + 1, y + 1, 5, 4, winPalNum, baseBlock);
     CreateYesNoMenu(&template, baseTileNum, yesNoPalNum, 0);
+}
+
+void CreateHoennKantoMenuParameterized(u8 x, u8 y, u16 baseTileNum, u16 baseBlock, u8 hoennKantoPalNum, u8 winPalNum)
+{
+    struct WindowTemplate template = CreateWindowTemplate(0, x + 1, y + 1, 6, 8, winPalNum, baseBlock);
+    CreateHoennKantoMenu(&template, baseTileNum, hoennKantoPalNum, 0);
+}
+
+void CreateRegionMenuParameterized(u8 x, u8 y, u16 baseTileNum, u16 baseBlock, u8 palNum, u8 winPalNum)
+{
+    struct WindowTemplate template = CreateWindowTemplate(0, x + 1, y + 1, 8, 8, winPalNum, baseBlock);
+    CreateRegionMenu(&template, baseTileNum, palNum, 0);
 }
 
 static void Task_NewGameBirchSpeech_ReturnFromNamingScreenShowTextbox(u8 taskId)

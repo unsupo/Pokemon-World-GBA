@@ -4840,7 +4840,15 @@ void AnimateTeleporterCable(void)
 
 void SetVermilionTrashCans(void)
 {
-    u16 idx = (Random() % 15) + 1;
+    u16 idx;
+    // In Yellow mode the switches are always in the same cans (no randomness)
+    if (FlagGet(FLAG_YELLOW_MODE))
+    {
+        gSpecialVar_0x8004 = 5;
+        gSpecialVar_0x8005 = 10;
+        return;
+    }
+    idx = (Random() % 15) + 1;
     gSpecialVar_0x8004 = idx;
     gSpecialVar_0x8005 = idx;
     switch (gSpecialVar_0x8004)
@@ -5778,4 +5786,75 @@ bool8 CheckAddCoins(void)
         return FALSE;
     else
         return TRUE;
+}
+
+// ---------------------------------------------------------------------------
+// Global badge scaling system
+// ---------------------------------------------------------------------------
+
+static const u16 sHoennBadgeFlags[8] = {
+    FLAG_BADGE01_GET, FLAG_BADGE02_GET, FLAG_BADGE03_GET, FLAG_BADGE04_GET,
+    FLAG_BADGE05_GET, FLAG_BADGE06_GET, FLAG_BADGE07_GET, FLAG_BADGE08_GET,
+};
+
+static const u16 sKantoBadgeFlags[8] = {
+    FLAG_KANTO_BADGE01_GET, FLAG_KANTO_BADGE02_GET, FLAG_KANTO_BADGE03_GET,
+    FLAG_KANTO_BADGE04_GET, FLAG_KANTO_BADGE05_GET, FLAG_KANTO_BADGE06_GET,
+    FLAG_KANTO_BADGE07_GET, FLAG_KANTO_BADGE08_GET,
+};
+
+static const u16 sJohtoBadgeFlags[8] = {
+    FLAG_JOHTO_BADGE01_GET, FLAG_JOHTO_BADGE02_GET, FLAG_JOHTO_BADGE03_GET,
+    FLAG_JOHTO_BADGE04_GET, FLAG_JOHTO_BADGE05_GET, FLAG_JOHTO_BADGE06_GET,
+    FLAG_JOHTO_BADGE07_GET, FLAG_JOHTO_BADGE08_GET,
+};
+
+u8 GetGlobalBadgeCount(void)
+{
+    u8 i, count = 0;
+    for (i = 0; i < 8; i++)
+    {
+        if (FlagGet(sHoennBadgeFlags[i])) count++;
+        if (FlagGet(sKantoBadgeFlags[i])) count++;
+        if (FlagGet(sJohtoBadgeFlags[i])) count++;
+    }
+    return count;
+}
+
+// Tier = totalBadges / 4, capped at 6. Each tier = one region's 4-badge milestone.
+u8 GetGlobalBadgeTier(void)
+{
+    u8 tier = GetGlobalBadgeCount() / 4;
+    return tier > 6 ? 6 : tier;
+}
+
+// Returns in gSpecialVar_0x8000:
+//   1 = player has enough global badges to enter an Elite Four
+//   0 = not enough badges
+// gSpecialVar_0x8001 = required badge count
+// gSpecialVar_0x8002 = player's current badge count
+void Special_CheckEliteFourEligibility(void)
+{
+    u8 beaten = 0;
+    u8 actual = GetGlobalBadgeCount();
+    u8 required;
+
+    if (FlagGet(FLAG_SYS_GAME_CLEAR))         beaten++;  // Hoenn champion
+    if (FlagGet(FLAG_BEAT_KANTO_CHAMPION))    beaten++;  // Kanto champion (set by Kanto E4 script)
+    if (FlagGet(FLAG_BEAT_JOHTO_CHAMPION))    beaten++;  // Johto champion (set by Johto E4 script)
+
+    required = (beaten + 1) * 8;
+    gSpecialVar_0x8000 = (actual >= required) ? 1 : 0;
+    gSpecialVar_0x8001 = required;
+    gSpecialVar_0x8002 = actual;
+}
+
+void Special_GetGlobalBadgeCount(void)
+{
+    gSpecialVar_0x8000 = GetGlobalBadgeCount();
+}
+
+void Special_GetGlobalBadgeTier(void)
+{
+    gSpecialVar_0x8000 = GetGlobalBadgeTier();
 }

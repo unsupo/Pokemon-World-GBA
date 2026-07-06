@@ -15821,6 +15821,934 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Ice Beam
 - Rest
 
+=== TRAINER_ROXANNE_6 ===
+Name: ROXANNE
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Aerodactyl @ Choice Band
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stone Edge
+- Earthquake
+- Ice Fang
+- Crunch
+
+Golem @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Earthquake
+- Stone Edge
+- Explosion
+
+Omastar @ White Herb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Shell Smash
+- Hydro Pump
+- Ice Beam
+- Rock Blast
+
+Kabutops @ Life Orb
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Swords Dance
+- Stone Edge
+- Aqua Jet
+- Low Kick
+
+Armaldo @ Lum Berry
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rock Blast
+- X-Scissor
+- Iron Head
+- Aqua Tail
+
+Cradily @ Leftovers
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Recover
+- Toxic
+- Rock Slide
+
+=== TRAINER_ROXANNE_7 ===
+Name: ROXANNE
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Tyranitar @ Choice Scarf
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stone Edge
+- Crunch
+- Earthquake
+- Ice Punch
+
+Aerodactyl @ Focus Sash
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Stone Edge
+- Taunt
+- Earthquake
+
+Omastar @ White Herb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Shell Smash
+- Hydro Pump
+- Ice Beam
+- Rock Blast
+
+Rhyperior @ Assault Vest
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stone Edge
+- Earthquake
+- Ice Punch
+- Megahorn
+
+Armaldo @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Swords Dance
+- Rock Blast
+- X-Scissor
+- Aqua Tail
+
+Cradily @ Leftovers
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Recover
+- Toxic
+- Rock Slide
+- Energy Ball
+
+=== TRAINER_BRAWLY_6 ===
+Name: BRAWLY
+Class: Leader
+Pic: Leader Brawly
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Machamp @ Lum Berry
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Bulk Up
+- Cross Chop
+- Rock Slide
+- Earthquake
+
+Heracross @ Choice Band
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Megahorn
+- Close Combat
+- Stone Edge
+- Night Slash
+
+Breloom @ Toxic Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Spore
+- Mach Punch
+- Seed Bomb
+- Focus Punch
+
+Hariyama @ Assault Vest
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Close Combat
+- Knock Off
+- Bullet Punch
+- Ice Punch
+
+Medicham @ Choice Band
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- High Jump Kick
+- Ice Punch
+- Zen Headbutt
+- Bullet Punch
+
+Hitmontop @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fake Out
+- Sucker Punch
+- Close Combat
+- Rapid Spin
+
+=== TRAINER_BRAWLY_7 ===
+Name: BRAWLY
+Class: Leader
+Pic: Leader Brawly
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Conkeldurr @ Assault Vest
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Drain Punch
+- Mach Punch
+- Thunder Punch
+- Ice Punch
+
+Machamp @ Lum Berry
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Bulk Up
+- Cross Chop
+- Rock Slide
+- Earthquake
+
+Heracross @ Choice Scarf
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Close Combat
+- Megahorn
+- Stone Edge
+- Night Slash
+
+Infernape @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Close Combat
+- Flare Blitz
+- Mach Punch
+- U-turn
+
+Breloom @ Toxic Orb
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Spore
+- Bullet Seed
+- Mach Punch
+- Stone Edge
+
+Lucario @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Close Combat
+- Flash Cannon
+- Bullet Punch
+- Swords Dance
+
+=== TRAINER_WATTSON_6 ===
+Name: WATTSON
+Class: Leader
+Pic: Leader Wattson
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Manectric @ Choice Specs
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Flamethrower
+- Volt Switch
+- Signal Beam
+
+Electrode @ Choice Scarf
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Volt Switch
+- Shadow Ball
+- Explosion
+
+Ampharos @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Dragon Pulse
+- Focus Blast
+- Power Gem
+
+Jolteon @ Choice Specs
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Shadow Ball
+- Volt Switch
+- Signal Beam
+
+Raichu @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Grass Knot
+- Focus Blast
+- Volt Switch
+
+Magneton @ Choice Scarf
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Flash Cannon
+- Volt Switch
+- Tri Attack
+
+=== TRAINER_WATTSON_7 ===
+Name: WATTSON
+Class: Leader
+Pic: Leader Wattson
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Magnezone @ Choice Specs
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Flash Cannon
+- Volt Switch
+- Tri Attack
+
+Jolteon @ Choice Specs
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Shadow Ball
+- Volt Switch
+- Signal Beam
+
+Raichu @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Grass Knot
+- Focus Blast
+- Volt Switch
+
+Electrode @ Focus Sash
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Memento
+- Thunderbolt
+- Explosion
+- Light Screen
+
+Electivire @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Ice Punch
+- Flamethrower
+- Earthquake
+
+Ampharos @ Leftovers
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunderbolt
+- Dragon Pulse
+- Focus Blast
+- Volt Switch
+
+=== TRAINER_FLANNERY_6 ===
+Name: FLANNERY
+Class: Leader
+Pic: Leader Flannery
+Gender: Female
+Music: Female
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Arcanine @ Choice Band
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Flare Blitz
+- Wild Charge
+- Extreme Speed
+- Close Combat
+
+Ninetales @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Blast
+- Energy Ball
+- Nasty Plot
+- Dark Pulse
+
+Camerupt @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Earth Power
+- Fire Blast
+- Ancient Power
+- Flash Cannon
+
+Torkoal @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Rapid Spin
+- Lava Plume
+- Yawn
+
+Rapidash @ Life Orb
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Flare Blitz
+- High Horsepower
+- Wild Charge
+- Megahorn
+
+Magmar @ Choice Scarf
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Blast
+- Focus Blast
+- Thunderbolt
+- Power-Up Punch
+
+=== TRAINER_FLANNERY_7 ===
+Name: FLANNERY
+Class: Leader
+Pic: Leader Flannery
+Gender: Female
+Music: Female
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Volcarona @ Lum Berry
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Quiver Dance
+- Fiery Dance
+- Bug Buzz
+- Giga Drain
+
+Arcanine @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Flare Blitz
+- Wild Charge
+- Extreme Speed
+- Close Combat
+
+Magmortar @ Choice Scarf
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Blast
+- Focus Blast
+- Thunderbolt
+- Flamethrower
+
+Camerupt @ Life Orb
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Earth Power
+- Fire Blast
+- Ancient Power
+- Flash Cannon
+
+Chandelure @ Choice Specs
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Blast
+- Shadow Ball
+- Energy Ball
+- Flamethrower
+
+Ninetales @ Choice Scarf
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Blast
+- Energy Ball
+- Nasty Plot
+- Dark Pulse
+
+=== TRAINER_NORMAN_6 ===
+Name: NORMAN
+Class: Leader
+Pic: Leader Norman
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Slaking @ Choice Band
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Return
+- Earthquake
+- Shadow Claw
+- Hammer Arm
+
+Porygon2 @ Eviolite
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Tri Attack
+- Thunder Wave
+- Ice Beam
+- Recover
+
+Kangaskhan @ Choice Band
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Return
+- Earthquake
+- Crunch
+- Sucker Punch
+
+Tauros @ Choice Scarf
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Return
+- Earthquake
+- Rock Slide
+- Ice Beam
+
+Blissey @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Soft-Boiled
+- Thunder Wave
+- Seismic Toss
+- Flamethrower
+
+Vigoroth @ Life Orb
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Facade
+- Earthquake
+- Shadow Claw
+- Bulk Up
+
+=== TRAINER_NORMAN_7 ===
+Name: NORMAN
+Class: Leader
+Pic: Leader Norman
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Slaking @ Choice Band
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Return
+- Earthquake
+- Shadow Claw
+- Giga Impact
+
+Porygon-Z @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Nasty Plot
+- Tri Attack
+- Shadow Ball
+- Dark Pulse
+
+Blissey @ Leftovers
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Soft-Boiled
+- Thunder Wave
+- Seismic Toss
+- Flamethrower
+
+Kangaskhan @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Return
+- Earthquake
+- Sucker Punch
+- Crunch
+
+Snorlax @ Choice Band
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Return
+- Earthquake
+- Ice Punch
+- Crunch
+
+Tauros @ Choice Scarf
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Return
+- Earthquake
+- Rock Slide
+- Blizzard
+
+=== TRAINER_WINONA_6 ===
+Name: WINONA
+Class: Leader
+Pic: Leader Winona
+Gender: Female
+Music: Female
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Altaria @ Choice Band
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Brave Bird
+- Dragon Claw
+- Earthquake
+- Cotton Guard
+
+Skarmory @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Spikes
+- Roost
+- Brave Bird
+
+Swellow @ Choice Band
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Brave Bird
+- Facade
+- Quick Attack
+- U-turn
+
+Pelipper @ Damp Rock
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rain Dance
+- Hurricane
+- Surf
+- Ice Beam
+
+Tropius @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Air Slash
+- Leaf Storm
+- Synthesis
+- Earthquake
+
+Xatu @ Leftovers
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Calm Mind
+- Psychic
+- Air Slash
+- Shadow Ball
+
+=== TRAINER_WINONA_7 ===
+Name: WINONA
+Class: Leader
+Pic: Leader Winona
+Gender: Female
+Music: Female
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Skarmory @ Leftovers
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Spikes
+- Roost
+- Whirlwind
+
+Togekiss @ Lum Berry
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Air Slash
+- Thunder Wave
+- Nasty Plot
+- Aura Sphere
+
+Altaria @ Lum Berry
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Dance
+- Brave Bird
+- Dragon Claw
+- Earthquake
+
+Staraptor @ Choice Scarf
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Brave Bird
+- Close Combat
+- U-turn
+- Return
+
+Gyarados @ Life Orb
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Dance
+- Waterfall
+- Ice Fang
+- Bounce
+
+Dragonite @ Lum Berry
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Dance
+- Outrage
+- Extreme Speed
+- Fire Punch
+
+=== TRAINER_TATE_AND_LIZA_6 ===
+Name: TATE&LIZA
+Class: Leader
+Pic: Leader Tate And Liza
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Xatu @ Life Orb
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Calm Mind
+- Psychic
+- Shadow Ball
+- Air Slash
+
+Gardevoir @ Choice Scarf
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psychic
+- Moonblast
+- Shadow Ball
+- Focus Blast
+
+Slowbro @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Scald
+- Slack Off
+- Calm Mind
+- Ice Beam
+
+Alakazam @ Focus Sash
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psychic
+- Shadow Ball
+- Focus Blast
+- Recover
+
+Espeon @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stored Power
+- Shadow Ball
+- Calm Mind
+- Morning Sun
+
+Claydol @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rapid Spin
+- Reflect
+- Cosmic Power
+- Earth Power
+
+=== TRAINER_TATE_AND_LIZA_7 ===
+Name: TATE&LIZA
+Class: Leader
+Pic: Leader Tate And Liza
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Metagross @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Meteor Mash
+- Earthquake
+- Hammer Arm
+- Bullet Punch
+
+Gardevoir @ Choice Scarf
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psychic
+- Moonblast
+- Shadow Ball
+- Focus Blast
+
+Alakazam @ Focus Sash
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psychic
+- Shadow Ball
+- Focus Blast
+- Recover
+
+Slowbro @ Leftovers
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Scald
+- Slack Off
+- Calm Mind
+- Ice Beam
+
+Reuniclus @ Leftovers
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psyshock
+- Focus Blast
+- Thunder Wave
+- Recover
+
+Espeon @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psychic
+- Shadow Ball
+- Morning Sun
+- Calm Mind
+
+=== TRAINER_JUAN_6 ===
+Name: JUAN
+Class: Leader
+Pic: Leader Juan
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Kingdra @ Lum Berry
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Dance
+- Dragon Claw
+- Waterfall
+- Ice Beam
+
+Politoed @ Damp Rock
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rain Dance
+- Hydro Pump
+- Ice Beam
+- Focus Blast
+
+Starmie @ Choice Scarf
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Hydro Pump
+- Ice Beam
+- Psychic
+- Thunderbolt
+
+Lapras @ Leftovers
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Surf
+- Ice Beam
+- Thunder Wave
+- Perish Song
+
+Crawdaunt @ Life Orb
+Level: 73
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Crabhammer
+- Crunch
+- Swords Dance
+- Aqua Jet
+
+Walrein @ Leftovers
+Level: 75
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Protect
+- Toxic
+- Ice Beam
+- Surf
+
+=== TRAINER_JUAN_7 ===
+Name: JUAN
+Class: Leader
+Pic: Leader Juan
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore / Full Restore
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Kingdra @ Lum Berry
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Dance
+- Outrage
+- Waterfall
+- Ice Beam
+
+Politoed @ Damp Rock
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rain Dance
+- Hydro Pump
+- Ice Beam
+- Perish Song
+
+Starmie @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Hydro Pump
+- Ice Beam
+- Psychic
+- Thunderbolt
+
+Gyarados @ Life Orb
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Dance
+- Waterfall
+- Ice Fang
+- Stone Edge
+
+Swampert @ Choice Band
+Level: 83
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Waterfall
+- Earthquake
+- Ice Punch
+- Hammer Arm
+
+Cloyster @ Lum Berry
+Level: 85
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Shell Smash
+- Rock Blast
+- Icicle Spear
+- Razor Shell
+
 === TRAINER_ANGELO ===
 Name: ANGELO
 Class: Bug Maniac

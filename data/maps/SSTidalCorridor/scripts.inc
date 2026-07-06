@@ -8,6 +8,10 @@ SSTidalCorridor_OnFrame:
 	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE, SSTidalCorridor_EventScript_DepartLilycoveForSlateport
 	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_EXIT_CURRENTS_RIGHT, SSTidalCorridor_EventScript_HalfwayToLilycove
 	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_EXIT_CURRENTS_LEFT, SSTidalCorridor_EventScript_ArrivedInSlateport
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_KANTO, SSTidalCorridor_EventScript_DepartSlateportForKanto
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_HOENN, SSTidalCorridor_EventScript_DepartVermilionForHoenn
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_KANTO, SSTidalCorridor_EventScript_ArrivedInVermilion
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_HOENN, SSTidalCorridor_EventScript_ArrivedInSlateportFromKanto
 	.2byte 0
 
 SSTidalCorridor_EventScript_DepartSlateportForLilycove::
@@ -114,6 +118,8 @@ SSTidalCorridor_EventScript_ExitSailor::
 	faceplayer
 	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_LILYCOVE, SSTidalCorridor_EventScript_ExitLilycove
 	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_SLATEPORT, SSTidalCorridor_EventScript_ExitSlateport
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_KANTO, SSTidalCorridor_EventScript_ExitVermilion
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_HOENN, SSTidalCorridor_EventScript_ExitSlateportFromKanto
 	msgbox SSTidalCorridor_Text_CanRestInCabin2, MSGBOX_DEFAULT
 	release
 	end
@@ -134,6 +140,58 @@ SSTidalCorridor_EventScript_ExitSlateport::
 	warp MAP_SLATEPORT_CITY_HARBOR, 8, 11
 	waitstate
 	release
+	end
+
+SSTidalCorridor_EventScript_ExitVermilion::
+	setflag FLAG_TRAVELED_TO_KANTO
+	setrespawn HEAL_LOCATION_VERMILION_CITY
+	msgbox SSTidalCorridor_Text_WeveArrived, MSGBOX_DEFAULT
+	warp MAP_VERMILION_CITY, 27, 33
+	waitstate
+	release
+	end
+
+SSTidalCorridor_EventScript_ExitSlateportFromKanto::
+	setflag FLAG_TRAVELED_TO_HOENN
+	setrespawn HEAL_LOCATION_SLATEPORT_CITY
+	msgbox SSTidalCorridor_Text_WeveArrived, MSGBOX_DEFAULT
+	warp MAP_SLATEPORT_CITY_HARBOR, 8, 11
+	waitstate
+	release
+	end
+
+SSTidalCorridor_EventScript_DepartSlateportForKanto::
+	special SetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_KANTO
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_CrossingToKanto, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SSTidalCorridor_EventScript_DepartVermilionForHoenn::
+	special SetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_HOENN
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_CrossingToHoenn, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SSTidalCorridor_EventScript_ArrivedInVermilion::
+	special ResetSSTidalFlag
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_MadeLandInVermilion, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SSTidalCorridor_EventScript_ArrivedInSlateportFromKanto::
+	special ResetSSTidalFlag
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_MadeLandInSlateport, MSGBOX_DEFAULT
+	releaseall
 	end
 
 SSTidalCorridor_EventScript_HideSnatchGiver::
@@ -285,6 +343,22 @@ SSTidal_Text_MadeLandInSlateport:
 
 SSTidal_Text_MadeLandInLilycove:
 	.string "We have made land in LILYCOVE CITY.\n"
+	.string "Thank you for sailing with us.$"
+
+SSTidal_Text_CrossingToKanto:
+	.string "This vessel will now cross the ocean\n"
+	.string "to the KANTO REGION.\p"
+	.string "Our destination is VERMILION CITY.\n"
+	.string "We hope you enjoy your voyage.$"
+
+SSTidal_Text_CrossingToHoenn:
+	.string "This vessel will now cross the ocean\n"
+	.string "to the HOENN REGION.\p"
+	.string "Our destination is SLATEPORT CITY.\n"
+	.string "We hope you enjoy your voyage.$"
+
+SSTidal_Text_MadeLandInVermilion:
+	.string "We have made land in VERMILION CITY.\n"
 	.string "Thank you for sailing with us.$"
 
 SSTidalCorridor_Text_CanRestInCabin2:

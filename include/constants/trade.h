@@ -21,6 +21,10 @@ enum InGameTradeID
     INGAME_TRADE_ELECTRODE,
     INGAME_TRADE_TANGELA,
     INGAME_TRADE_SEEL,
+    // Johto
+    INGAME_TRADE_VOLTORB,
+    INGAME_TRADE_MACHOP,
+    INGAME_TRADE_ONIX,
 };
 
 // Return values for CanTradeSelectedMon and CanSpinTradeMon

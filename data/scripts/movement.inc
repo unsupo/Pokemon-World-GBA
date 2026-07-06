@@ -174,3 +174,27 @@ Common_Movement_WalkRightFaster::
 Common_Movement_WalkLeftFaster::
 	walk_faster_left
 	step_end
+
+Common_Movement_JumpUp1::
+	jump_up
+	step_end
+
+Common_Movement_JumpDown1::
+	jump_down
+	step_end
+
+Common_Movement_WalkUp1::
+	walk_up
+	step_end
+
+Common_Movement_WalkDown1::
+	walk_down
+	step_end
+
+Common_Movement_WalkRight1::
+	walk_right
+	step_end
+
+Common_Movement_WalkLeft1::
+	walk_left
+	step_end

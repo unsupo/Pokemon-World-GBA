@@ -827,6 +827,71 @@
 	trainerbattle TRAINER_BATTLE_TWO_TRAINERS_NO_INTRO, OBJ_ID_NONE, \trainer_a, NULL, \lose_text_a, NULL, OBJ_ID_NONE, \trainer_b, NULL, \lose_text_b, NULL, NULL, NULL, FALSE, TRUE, FALSE, FALSE
 	.endm
 
+	@ Scaled gym-leader battle: picks trainer from t0..t6 based on GetGlobalBadgeTier() (0-6).
+	@ Tier = totalGlobalBadges / 4, capped at 6. Pass event_script for post-battle badge-giving.
+	@ Usage: trainerbattle_scaled T0, T1, T2, T3, T4, T5, T6, intro_text, lose_text [, event_script [, music]]
+	.macro trainerbattle_scaled t0:req, t1:req, t2:req, t3:req, t4:req, t5:req, t6:req, intro_text:req, lose_text:req, event_script=FALSE, music=TRUE
+	special Special_GetGlobalBadgeTier
+	goto_if_ge VAR_0x8000, 6, .Lscaled_t6_\@
+	goto_if_ge VAR_0x8000, 5, .Lscaled_t5_\@
+	goto_if_ge VAR_0x8000, 4, .Lscaled_t4_\@
+	goto_if_ge VAR_0x8000, 3, .Lscaled_t3_\@
+	goto_if_ge VAR_0x8000, 2, .Lscaled_t2_\@
+	goto_if_ge VAR_0x8000, 1, .Lscaled_t1_\@
+	trainerbattle_single \t0, \intro_text, \lose_text, \event_script, \music
+	goto .Lscaled_end_\@
+.Lscaled_t1_\@:
+	trainerbattle_single \t1, \intro_text, \lose_text, \event_script, \music
+	goto .Lscaled_end_\@
+.Lscaled_t2_\@:
+	trainerbattle_single \t2, \intro_text, \lose_text, \event_script, \music
+	goto .Lscaled_end_\@
+.Lscaled_t3_\@:
+	trainerbattle_single \t3, \intro_text, \lose_text, \event_script, \music
+	goto .Lscaled_end_\@
+.Lscaled_t4_\@:
+	trainerbattle_single \t4, \intro_text, \lose_text, \event_script, \music
+	goto .Lscaled_end_\@
+.Lscaled_t5_\@:
+	trainerbattle_single \t5, \intro_text, \lose_text, \event_script, \music
+	goto .Lscaled_end_\@
+.Lscaled_t6_\@:
+	trainerbattle_single \t6, \intro_text, \lose_text, \event_script, \music
+.Lscaled_end_\@:
+	.endm
+
+	@ Double-battle variant of trainerbattle_scaled. Used for gym leaders like Tate & Liza.
+	@ Usage: trainerbattle_scaled_double T0..T6, intro_text, lose_text, no_mon_text [, event_script [, music]]
+	.macro trainerbattle_scaled_double t0:req, t1:req, t2:req, t3:req, t4:req, t5:req, t6:req, intro_text:req, lose_text:req, no_mon_text:req, event_script=FALSE, music=TRUE
+	special Special_GetGlobalBadgeTier
+	goto_if_ge VAR_0x8000, 6, .Lscaledd_t6_\@
+	goto_if_ge VAR_0x8000, 5, .Lscaledd_t5_\@
+	goto_if_ge VAR_0x8000, 4, .Lscaledd_t4_\@
+	goto_if_ge VAR_0x8000, 3, .Lscaledd_t3_\@
+	goto_if_ge VAR_0x8000, 2, .Lscaledd_t2_\@
+	goto_if_ge VAR_0x8000, 1, .Lscaledd_t1_\@
+	trainerbattle_double \t0, \intro_text, \lose_text, \no_mon_text, \event_script, \music
+	goto .Lscaledd_end_\@
+.Lscaledd_t1_\@:
+	trainerbattle_double \t1, \intro_text, \lose_text, \no_mon_text, \event_script, \music
+	goto .Lscaledd_end_\@
+.Lscaledd_t2_\@:
+	trainerbattle_double \t2, \intro_text, \lose_text, \no_mon_text, \event_script, \music
+	goto .Lscaledd_end_\@
+.Lscaledd_t3_\@:
+	trainerbattle_double \t3, \intro_text, \lose_text, \no_mon_text, \event_script, \music
+	goto .Lscaledd_end_\@
+.Lscaledd_t4_\@:
+	trainerbattle_double \t4, \intro_text, \lose_text, \no_mon_text, \event_script, \music
+	goto .Lscaledd_end_\@
+.Lscaledd_t5_\@:
+	trainerbattle_double \t5, \intro_text, \lose_text, \no_mon_text, \event_script, \music
+	goto .Lscaledd_end_\@
+.Lscaledd_t6_\@:
+	trainerbattle_double \t6, \intro_text, \lose_text, \no_mon_text, \event_script, \music
+.Lscaledd_end_\@:
+	.endm
+
 	@ Starts a trainer battle with victory text if the player loses. If flags is nonzero, the player will be healed after battle (and its assumed to be the tutorial battle)
 	.macro trainerbattle_earlyrival trainer:req, flags:req, lose_text:req, victory_text:req
 	trainerbattle TRAINER_BATTLE_EARLY_RIVAL, OBJ_ID_NONE, \trainer, NULL, \lose_text, NULL, OBJ_ID_NONE, TRAINER_NONE, NULL, NULL, NULL, \victory_text, NULL, FALSE, TRUE, FALSE, FALSE, \flags
@@ -2949,3 +3014,45 @@
 	getbraillestringwidth \text
 	call EventScript_BrailleCursorWaitButton
 	.endm
+
+	.macro giveoddegg arg0:req
+	.endm
+
+	.macro baobacheckmon arg0:req
+	.endm
+
+	.macro applymovement2 arg0:req, arg1:req
+	.endm
+
+	@ HnS Johto stubs — no-ops until these are properly implemented
+	.macro givenamedmon arg0:req
+	.endm
+
+	.macro removenamedmon arg0:req
+	.endm
+
+	@ checkpartymove: set VAR_RESULT to PARTY_SIZE (meaning "not found") as stub
+	.macro checkpartymove move:req
+	setvar VAR_RESULT, PARTY_SIZE
+	.endm
+
+	.macro chooseitem pocket:req
+	.endm
+
+	.macro setwildbattleshiny species:req, level:req
+	.endm
+
+	.macro removegenericmon species:req
+	.endm
+
+	.macro givebp amount:req
+	.endm
+
+	.macro buffermoncategory dest:req, species:req
+	.endm
+
+	@ checkrandomizer: check if HnS randomizer is active; stub returns FALSE
+	.macro checkrandomizer
+	setvar VAR_RESULT, FALSE
+	.endm
+

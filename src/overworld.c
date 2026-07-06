@@ -82,6 +82,8 @@
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
+#include "constants/map_groups.h"
+#include "constants/maps.h"
 
 STATIC_ASSERT((B_FLAG_FOLLOWERS_DISABLED == 0 || OW_FOLLOWERS_ENABLED), FollowersFlagAssignedWithoutEnablingThem);
 
@@ -935,7 +937,9 @@ static void LoadMapFromWarp(bool32 a1)
     bool8 isOutdoors;
     bool8 isIndoors;
 
+    DebugPrintf("LoadMapFromWarp: LoadCurrentMapData");
     LoadCurrentMapData();
+    DebugPrintf("LoadMapFromWarp: layoutId=%d isFrlg=%d", gMapHeader.mapLayoutId, gMapHeader.mapLayout ? gMapHeader.mapLayout->isFrlg : -1);
     if (!(sObjectEventLoadFlag & SKIP_OBJECT_EVENT_LOAD))
     {
         if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
@@ -972,16 +976,19 @@ static void LoadMapFromWarp(bool32 a1)
         FlagClear(FLAG_SYS_USE_FLASH);
     SetDefaultFlashLevel();
     Overworld_ClearSavedMusic();
+    DebugPrintf("LoadMapFromWarp: RunOnTransitionMapScript");
     RunOnTransitionMapScript();
     UpdateLocationHistoryForRoamer();
     MoveAllRoamersToOtherLocationSets();
     gChainFishingDexNavStreak = 0;
+    DebugPrintf("LoadMapFromWarp: InitMap");
     if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
         InitBattlePyramidMap(FALSE);
     else if (InTrainerHill())
         InitTrainerHillMap();
     else
         InitMap();
+    DebugPrintf("LoadMapFromWarp: done");
 
     if (a1 != TRUE && isIndoors)
     {
@@ -1907,20 +1914,25 @@ static bool8 RunFieldCallback(void)
 
 void CB2_NewGame(void)
 {
+    DebugPrintf("CB2_NewGame start region=%d", gNewGameRegion);
     FieldClearVBlankHBlankCallbacks();
     StopMapMusic();
     ResetSafariZoneFlag_();
+    DebugPrintf("CB2_NewGame before NewGameInitData");
     NewGameInitData();
+    DebugPrintf("CB2_NewGame after NewGameInitData");
     ResetInitialPlayerAvatarState();
     PlayTimeCounter_Start();
     ScriptContext_Init();
     UnlockPlayerFieldControls();
-    if (IS_FRLG)
+    if (gNewGameRegion == STARTING_REGION_KANTO || gNewGameRegion == STARTING_REGION_YELLOW || gNewGameRegion == STARTING_REGION_JOHTO)
         gFieldCallback = FieldCB_WarpExitFadeFromBlack;
     else
         gFieldCallback = ExecuteTruckSequence;
     gFieldCallback2 = NULL;
+    DebugPrintf("CB2_NewGame before DoMapLoadLoop warp=%d/%d", gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
     DoMapLoadLoop(&gMain.state);
+    DebugPrintf("CB2_NewGame after DoMapLoadLoop");
     SetFieldVBlankCallback();
     SetMainCallback1(CB1_Overworld);
     SetMainCallback2(CB2_Overworld);
@@ -2093,11 +2105,20 @@ void CB2_ContinueSavedGame(void)
 {
     u8 trainerHillMapId;
 
+    DebugPrintf("CB2_ContinueSavedGame: mapGroup=%d mapNum=%d", gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
     FieldClearVBlankHBlankCallbacks();
     StopMapMusic();
     ResetSafariZoneFlag_();
     if (gSaveFileStatus == SAVE_STATUS_ERROR)
         ResetWinStreaks();
+
+    // Redirect saves in Johto maps to Pallet Town 2F until Johto tilesets are implemented
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_AZALEA_TOWN))
+    {
+        DebugPrintf("CB2_ContinueSavedGame: Johto save detected, redirecting to Pallet Town 2F");
+        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), WARP_ID_NONE, 6, 6);
+        WarpIntoMap();
+    }
 
     LoadSaveblockMapHeader();
     ClearDiveAndHoleWarps();
@@ -2280,43 +2301,52 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 a2)
     switch (*state)
     {
     case 0:
+        DebugPrintf("MapLoad step 0: LoadMapFromWarp");
         FieldClearVBlankHBlankCallbacks();
         LoadMapFromWarp(a2);
         (*state)++;
         break;
     case 1:
+        DebugPrintf("MapLoad step 1: ResetScreen");
         ResetMirageTowerAndSaveBlockPtrs();
         ResetScreenForMapLoad();
         (*state)++;
         break;
     case 2:
+        DebugPrintf("MapLoad step 2: ResumeMap");
         ResumeMap(a2);
         (*state)++;
         break;
     case 3:
+        DebugPrintf("MapLoad step 3: InitObjectEvents");
         InitObjectEventsLocal();
         SetCameraToTrackPlayer();
         (*state)++;
         break;
     case 4:
+        DebugPrintf("MapLoad step 4: InitViewGraphics");
         InitCurrentFlashLevelScanlineEffect();
         InitOverworldGraphicsRegisters();
         InitTextBoxGfxAndPrinters();
         (*state)++;
         break;
     case 5:
+        DebugPrintf("MapLoad step 5: ResetFieldCamera");
         ResetFieldCamera();
         (*state)++;
         break;
     case 6:
+        DebugPrintf("MapLoad step 6: CopyPrimaryTileset isFrlg=%d", gMapHeader.mapLayout->isFrlg);
         CopyPrimaryTilesetToVram(gMapHeader.mapLayout);
         (*state)++;
         break;
     case 7:
+        DebugPrintf("MapLoad step 7: CopySecondaryTileset");
         CopySecondaryTilesetToVram(gMapHeader.mapLayout);
         (*state)++;
         break;
     case 8:
+        DebugPrintf("MapLoad step 8: FreeTempTileData+Palettes");
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LoadMapTilesetPalettes(gMapHeader.mapLayout);
@@ -2324,14 +2354,17 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 a2)
         }
         break;
     case 9:
+        DebugPrintf("MapLoad step 9: DrawWholeMapView");
         DrawWholeMapView();
         (*state)++;
         break;
     case 10:
+        DebugPrintf("MapLoad step 10: InitTilesetAnimations");
         InitTilesetAnimations();
         (*state)++;
         break;
     case 11:
+        DebugPrintf("MapLoad step 11: ShowMapName");
         if (ShouldRunMapPreview() && CurrentMapHasPreviewScreen(MPS_TYPE_FADE_IN) == TRUE)
         {
             MapPreview_LoadGfx(gMapHeader.regionMapSectionId);
@@ -2342,10 +2375,12 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 a2)
         (*state)++;
         break;
     case 12:
+        DebugPrintf("MapLoad step 12: RunFieldCallback");
         if (RunFieldCallback())
             (*state)++;
         break;
     case 13:
+        DebugPrintf("MapLoad step 13: DONE");
         return TRUE;
     }
 

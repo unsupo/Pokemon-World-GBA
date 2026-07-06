@@ -1,7 +1,9 @@
 #include "global.h"
+#include "trainer_rematch.h"
 #include "battle.h"
 #include "load_save.h"
 #include "battle_setup.h"
+#include "gym_leader_rematch.h"
 #include "battle_tower.h"
 #include "battle_transition.h"
 #include "main.h"
@@ -1491,6 +1493,7 @@ static void CB2_EndTrainerBattle(void)
         {
             RegisterTrainerInMatchCall();
             SetBattledTrainersFlags();
+            TryAdvanceTrainerRematchStage(TRAINER_BATTLE_PARAM.opponentA);
         }
     }
 }
