@@ -9,7 +9,7 @@ MEMORY
     EWRAM            (rwx) : ORIGIN = 0x2000000, LENGTH = 256K
     IWRAM            (rwx) : ORIGIN = 0x3000000, LENGTH = 0x7F00
     IWRAM_PERSISTENT (rwx) : ORIGIN = 0x3007F00, LENGTH = 0x100
-    ROM               (rx) : ORIGIN = 0x8000000, LENGTH = 32M
+    ROM               (rx) : ORIGIN = 0x8000000, LENGTH = 64M
 }
 
 SECTIONS {

@@ -202,7 +202,7 @@ void NewGameInitData(void)
     DebugPrintf("NewGameInitData: InitEventData");
     InitEventData();
     DebugPrintf("NewGameInitData: VarSet+ClearTV");
-    VarSet(VAR_AVATAR_STYLE, AVATAR_STYLE_HOENN);
+    VarSet(VAR_AVATAR_STYLE, gNewGameAvatarStyle);
     ClearTVShowData();
     DebugPrintf("NewGameInitData: ResetGabbyAndTy");
     ResetGabbyAndTy();
